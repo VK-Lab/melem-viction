@@ -1,0 +1,32 @@
+version: '3.9'
+
+services:
+  d2e-api:
+    image: registry.gitlab.com/blhl1210/hub:d2e-api
+    container_name: "d2e-api"
+    env_file:
+      - ./.env
+    environment:
+      - PORT=4009
+      - SESSION_SECRET=4BOnJifco3b6nlAbqH
+      - IS_DEBUGGING_OTP=1
+      - IS_DEBUGGING=1
+      - SCHEDULE_SYNC_USERS_TIME_IN_MINUTE=10
+      - MONGODB_USER=d2e_user
+      - MONGODB_PASSWORD=RJvpLP37jYlpiW1B
+      - MONGODB_DATABASE=d2e
+      - MONGODB_HOST=d2e.wztl1dj.mongodb.net
+      - MORALIS_API_KEY=DLAG1Hz5nMAShNAdBbLjBiLf1VhlcercRyhi33swqrXNAKfrYmzFvqX2ik4fFLIa
+      - CNV_LOYALTY_CLIENT_ID=7cee404fefcf287e4f0597455b91c9fb
+      - CNV_LOYALTY_CLIENT_SECRET=e1d0e9810fcb29ad81a7eb02be47ea0b
+      - CNV_LOYALTY_TOKEN=636bb3ce2b3aeef1450b2e81
+      - ESMS_API_KEY=120589CF1D96C8B96A27F2BFDF4C3A
+      - ESMS_SECRET_KEY=EB6778F3E99933739FEE7B911206AD
+      - TELEGRAM_D2E_CHANNEL_ID=1008517892
+
+    restart: on-failure
+    ports:
+      - 4009:4009
+
+volumes:
+  mongo-db:

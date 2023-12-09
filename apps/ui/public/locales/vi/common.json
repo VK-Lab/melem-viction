@@ -1,0 +1,20 @@
+{
+  "hello": "Xin chào :)",
+  "success": {
+    "signup_success": "Bạn đã tạo tài khoản thành công."
+  },
+  "error" : {
+    "default": "Oops, đã xảy ra lỗi không xác định :)",
+    "action_rejected": "Oops, bạn đã từ chối hành động hiện tại",
+    "connector_not_found_error": "Yêu cầu bạn cài ví MetaMask để được đăng nhập",
+    "chain_not_configured": "Hãy chắc chắn rằng MetaMask của bạn đã kết nối đến mạng Viction",
+    "gas_fee_balance": "Đã xảy ra lỗi, vui lòng nâng phí gas lên."
+  },
+  "apiError": {
+    "your_phone_does_not_match_with_cnv_loyalty": "Số điện thoại của bạn phải tồn tại trên CNV Loyalty App",
+    "your_phone_does_exists": "Số điện thoại của bạn đã tồn tại",
+    "user_can_not_register_phone_number": "Bạn không thể cập nhật số điện thoại hiện tại",
+    "otp_not_found": "Mã OTP bạn nhập không đúng, vui lòng kiểm tra lại.",
+    "nft_does_exist": "NFT trên cơ sở dữ liệu đã tồn tại, vui lòng kiểm tra lại"
+  }
+}

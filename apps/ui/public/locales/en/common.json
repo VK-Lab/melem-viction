@@ -1,0 +1,20 @@
+{
+  "hello": "Hello :)",
+  "success": {
+    "signup_success": "Success, your account has been synced with Loyalty app"
+  },
+  "error" : {
+    "default": "Oops, something went wrong!",
+    "action_rejected": "Action rejected",
+    "connector_not_found_error": "MetaMask extension required to sign in",
+    "chain_not_configured": "Ensure MetaMask is connected to the same network on Viction",
+    "gas_fee_balance": "Oops, Insufficient funds for gas price, please try again with higer gas fee"
+  },
+  "apiError": {
+    "your_phone_does_not_match_with_cnv_loyalty": "Your phone number has not registered yet. Please download the Loyalty App and register new account with this phone number.",
+    "your_phone_does_exists": "This phone number already connected to the wallet. Please try another account in your wallet.",
+    "user_can_not_register_phone_number": "You can not update your phone, please contact the Administrator.",
+    "otp_not_found": "The OTP entered is incorrect.",
+    "nft_does_exist": "NFT does exist, plese double check again"
+  }
+}

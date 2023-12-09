@@ -1,0 +1,37 @@
+{
+  "name": "root",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "lint": "eslint . --cache",
+    "lint:fix": "pnpm lint --fix",
+    "lint:format": "prettier --write",
+    "build": "pnpm -r --filter './apps/**' build",
+    "dev": "pnpm -r --filter './apps/**' dev",
+    "changeset:release": "pnpm build && changeset publish",
+    "changeset:version": "changeset version && pnpm install --lockfile-only",
+    "docs:build": "pnpm -r --filter './docs' build",
+    "docs:export": "pnpm -r --filter './docs' export",
+    "docs:dev": "pnpm -r --filter './docs' dev",
+    "test": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:run": "vitest run",
+    "test:typecheck": "vitest typecheck",
+    "test:ui": "vitest --ui",
+    "test:update": "vitest --update",
+    "typecheck": "tsc --noEmit",
+    "preinstall": "npx only-allow pnpm"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.182",
+    "eslint": "^8.19.0",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jest": "^25.3.0",
+    "eslint-plugin-prettier": "^4.0.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
