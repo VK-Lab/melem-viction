@@ -29,12 +29,6 @@
       "@/*": [
         "./src/*"
       ],
-      "@app/aws": [
-        "libs/aws/src"
-      ],
-      "@app/aws/*": [
-        "libs/aws/src/*"
-      ]
     },
     "typeRoots": [
       "./typings/*"
@@ -48,5 +42,6 @@
     "node_modules",
     "dist",
     "**/dist/**"
-  ]
+  ],
+  "extends": "../../tsconfig.base.json",
 }

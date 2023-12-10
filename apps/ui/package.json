@@ -5,7 +5,6 @@
     "dev": "next -p 3001",
     "build": "next build",
     "start": "next start -p 8080",
-    "run-app": "pm2 start next -- start",
     "lint": "eslint src --max-warnings=0",
     "typecheck": "tsc --project tsconfig.json --noEmit",
     "test": "jest --maxWorkers=50%",

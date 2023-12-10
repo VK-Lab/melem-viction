@@ -1,6 +1,6 @@
-import _ from 'lodash';
-
-import type { Config, Objectype, Production } from './config.interface';
+import type { Config, Objectype } from './config.interface';
+import { config as DevConfig } from './envs/development';
+import { config as ProdConfig } from './envs/production';
 
 const util = {
   isObject<T>(value: T): value is T & Objectype {
@@ -21,8 +21,14 @@ const util = {
 
 export const configuration = async (): Promise<Config> => {
   const { config } = await import('./envs/default');
-  const { config: environment } = <{ config: Production }> await import(`./envs/${_.get(process, '.env.NODE_ENV', 'development')}`);
+  const nodeEnv = process.env.DB_NAME || 'development';
+  switch (nodeEnv) {
+    case 'development':
+      return <Config> <unknown>util.merge(config, DevConfig);
+    case 'production':
+      return <Config> util.merge(config, ProdConfig);
+    default:
+      return <Config> <unknown>util.merge(config, DevConfig);
+  }
 
-  // object deep merge
-  return util.merge(config, environment);
 };

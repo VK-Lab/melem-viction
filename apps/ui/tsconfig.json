@@ -41,5 +41,6 @@
     "src/**/*",
     "**/*.ts",
     "**/*.tsx"
-  ]
+  ],
+  "extends": "../../tsconfig.base.json",
 }

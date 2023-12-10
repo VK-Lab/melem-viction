@@ -13,7 +13,7 @@
     "deadcode:count": "ts-prune --project tsconfig.json | grep -v '(used in module)' | wc -l",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\" \"libs/**/*.ts\"",
     "start": "nest start",
-    "dev": "yarn start:dev",
+    "dev": "pnpm start:dev",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
@@ -139,7 +139,7 @@
   },
   "lint-staged": {
     "src/**/*.ts(x)?": [
-      "yarn lint --fix"
+      "pnpm lint --fix"
     ]
   },
   "jest": {

@@ -20,7 +20,8 @@ export const config = {
   },
 
   schedule: {
-    syncUsersTimeInMinute: process.env.SCHEDULE_SYNC_USERS_TIME_IN_MINUTE || '1',
+    syncUsersTimeInMinute:
+      process.env.SCHEDULE_SYNC_USERS_TIME_IN_MINUTE || '1',
   },
 
   cnvLoyalty: {
