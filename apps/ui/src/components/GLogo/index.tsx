@@ -1,6 +1,6 @@
 import Image from 'next/future/image';
 
-import logoD2E from '~/public/img/logo--d2e--yellow.png';
+import Logo from '~/public/img/logo.png';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const GLogo = (props: any) => {
@@ -10,7 +10,7 @@ const GLogo = (props: any) => {
       className="d2e--logo"
       style={{ height: 64, textAlign: 'center', padding: '10px 0' }}
     >
-      <Image alt="D2E" src={logoD2E} style={{ height: 'auto', width: 54 }} />
+      <Image alt="logo" src={Logo} style={{ height: 'auto', width: 54 }} />
     </div>
   );
 };

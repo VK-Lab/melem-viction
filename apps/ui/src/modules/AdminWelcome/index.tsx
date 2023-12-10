@@ -10,7 +10,7 @@ import {
 } from './styled';
 import AdminLoginButton from '@/modules/core/AdminLoginButton';
 import imageWelcome from '~/public/img/background.jpeg';
-import logoD2E from '~/public/img/logo--d2e--yellow.png';
+import Logo from '~/public/img/logo.png';
 
 const Welcome = () => {
   return (
@@ -19,7 +19,7 @@ const Welcome = () => {
         className="d2e--logo"
         style={{ position: 'fixed', left: 24, top: 24, zIndex: 1000 }}
       >
-        <Image alt="D2E" src={logoD2E} style={{ height: 'auto', width: 80 }} />
+        <Image alt="D2E" src={Logo} style={{ height: 'auto', width: 80 }} />
       </div>
       <StyledBox className="left">
         <StyledImageOverlay />

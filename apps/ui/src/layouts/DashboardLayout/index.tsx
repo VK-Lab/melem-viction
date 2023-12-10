@@ -9,7 +9,7 @@ import {
   StyledAuthLayout,
   StyledDashboardBodyContent,
 } from './styled';
-import logoD2E from '~/public/img/logo--d2e--yellow.png';
+import Logo from '~/public/img/logo.png';
 
 const DRAWER_WIDTH = 300;
 
@@ -30,11 +30,7 @@ const DashboardLayout = ({ children, elementTopbar }: Props) => {
           className="d2e--logo"
           style={{ height: 64, textAlign: 'center', padding: '10px 0' }}
         >
-          <Image
-            alt="D2E"
-            src={logoD2E}
-            style={{ width: 64, height: 'auto' }}
-          />
+          <Image alt="logo" src={Logo} style={{ width: 64, height: 'auto' }} />
         </div>
         <AdminSidebar maxWidth={DRAWER_WIDTH} />
       </StyledDrawer>
