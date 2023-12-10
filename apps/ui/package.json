@@ -10,7 +10,6 @@
     "typecheck": "tsc --project tsconfig.json --noEmit",
     "test": "jest --maxWorkers=50%",
     "test:watch": "jest --watch --maxWorkers=25%",
-    "postinstall": "husky install && chmod +x .husky/pre-commit",
     "generate": "yarn plop --plopfile generators/plopfile.js",
     "storybook": "start-storybook -s ./public -p 6006",
     "build-storybook": "build-storybook -s ./public",
@@ -19,11 +18,6 @@
   "engines": {
     "npm": ">=7.0.0",
     "node": ">=16.0.0"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   },
   "lint-staged": {
     "src/**/*.ts(x)?": [
