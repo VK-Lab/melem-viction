@@ -16,7 +16,6 @@ const ToastMessage = ({
     {
       type,
     }
-  )
-
+  );
 
 export default ToastMessage;

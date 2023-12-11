@@ -23,6 +23,12 @@ export class NftCollection {
 
   @Prop({
     required: true,
+    unique: true,
+  })
+  public uid!: string;
+
+  @Prop({
+    required: true,
   })
   public contractType!: string;
 

@@ -1,5 +1,6 @@
 import { LoadingButton } from '@mui/lab';
 import Box from '@mui/material/Box';
+import { customAlphabet } from 'nanoid/non-secure';
 import { FormContainer, SelectElement } from 'react-hook-form-mui';
 import { useQueryClient } from 'react-query';
 
@@ -8,13 +9,17 @@ import ToastMessage from '@/components/Toast';
 import { Config } from '@/config';
 import { ContractType } from '@/enums/contractType.enum';
 import { QueryKeys } from '@/enums/queryKeys.enum';
-import { useMutateCreateNftCollection } from '@/hooks/mutations';
+import {
+  UseMutateCreateNftCollectionParams,
+  useMutateCreateNftCollection,
+} from '@/hooks/mutations';
 import SelectBenefitsField from '@/modules/core/SelectBenefitsField';
-import { CreateNftCollectionParams } from '@/services/admin/nft-collection/types';
 
 type NftFormProps = {
   onSuccess?: () => void;
 };
+
+const nanoid = customAlphabet('1234567890abcdefghijklmnopqrstuvwxyz', 10);
 
 const NftForm = ({ onSuccess }: NftFormProps) => {
   const queryClient = useQueryClient();
@@ -32,10 +37,11 @@ const NftForm = ({ onSuccess }: NftFormProps) => {
   });
 
   const handleOnSubmitForm = async (
-    createNftCollectionParams: CreateNftCollectionParams
+    createNftCollectionParams: UseMutateCreateNftCollectionParams
   ) => {
     createNftCollectionMutation.mutate({
       ...createNftCollectionParams,
+      uid: nanoid(),
     });
   };
 
@@ -43,12 +49,13 @@ const NftForm = ({ onSuccess }: NftFormProps) => {
     <FormContainer
       defaultValues={{
         name: '',
-        contractType: ContractType.ERC721,
+        contractType: ContractType.VRC725,
         chainId: `${Config.chainId}`,
       }}
       onSuccess={handleOnSubmitForm}
     >
       <StyledTextFieldElement name="name" label="Name" required />
+      <StyledTextFieldElement name="symbol" label="Symbol" required />
       <StyledTextFieldElement name="description" label="Description" />
       <Box mt="1rem">
         <SelectElement
@@ -59,8 +66,8 @@ const NftForm = ({ onSuccess }: NftFormProps) => {
           }}
           options={[
             {
-              id: ContractType.ERC721,
-              label: 'ERC721',
+              id: ContractType.VRC725,
+              label: 'VRC725',
             },
             {
               id: ContractType.ERC1155,

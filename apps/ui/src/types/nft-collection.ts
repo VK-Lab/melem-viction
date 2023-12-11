@@ -9,4 +9,5 @@ export type NftCollection = {
   campaignId?: string;
   benefitIds?: string[];
   createdAt: string;
+  uid: string;
 };

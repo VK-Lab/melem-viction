@@ -1,11 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
-// import thunk from 'redux-thunk';
 
 const store = configureStore({
   reducer: {},
-  // @ts-ignore
-  // middleware: [thunk],
 });
 
 export type AppState = ReturnType<typeof store.getState>;

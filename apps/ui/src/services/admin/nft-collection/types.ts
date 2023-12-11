@@ -24,6 +24,7 @@ export type UpdateNftCollectionResponse = {
 
 export type CreateNftCollectionParams = Partial<NftCollection> & {
   name: string;
+  uid: string;
 };
 
 export type CreateNftCollectionResponse = {

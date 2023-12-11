@@ -1,4 +1,4 @@
 export enum ContractType {
-  ERC721 = 'ERC721',
+  VRC725 = 'VRC725',
   ERC1155 = 'ERC1155',
 }

@@ -2,6 +2,8 @@ import { Controller, Get, HttpCode, HttpStatus, Param, Post } from '@nestjs/comm
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { Types } from 'mongoose';
 
+import { NftCollectionService } from '../nft-collection';
+
 import { NftService } from './nft.service';
 import { Erc721Metadata, NftId } from './interfaces';
 
@@ -11,7 +13,24 @@ import { Payload } from '@/auth';
 @ApiTags('nfts')
 @Controller('nfts')
 export class NftController {
-  constructor(private readonly nftService: NftService) {}
+  constructor(
+    private readonly nftService: NftService,
+    private readonly nftCollectionService: NftCollectionService,
+  ) {}
+
+  @Get('by-uid/:uid/:tokenId/metadata')
+  @HttpCode(HttpStatus.OK)
+  @ApiOkResponse({
+    description: 'Get nft metadata',
+  })
+  public async getNftMetadata(@Param('uid') uid: string, @Param('tokenId') tokenId: string): Promise<Erc721Metadata> {
+    const nftCollection = await this.nftCollectionService.getByUid(uid);
+    if (!nftCollection) {
+      throw new Error('NFT collection not found');
+    }
+
+    return this.nftService.getNftMetadata(nftCollection?.tokenAddress, tokenId);
+  }
 
   // @Get('/')
   // @HttpCode(HttpStatus.OK)
@@ -46,12 +65,4 @@ export class NftController {
     return this.nftService.getNftMetadataById(id);
   }
 
-  @Get(':tokenAddress/:tokenId/metadata')
-  @HttpCode(HttpStatus.OK)
-  @ApiOkResponse({
-    description: 'Get nft metadata',
-  })
-  public async getNftMetadata(@Param('tokenAddress') tokenAddress: string, @Param('tokenId') tokenId: string): Promise<Erc721Metadata> {
-    return this.nftService.getNftMetadata(tokenAddress, tokenId);
-  }
 }

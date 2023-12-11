@@ -9,11 +9,15 @@ import { useEthersSigner } from '@/hooks/useEthers';
 import { createNftCollection } from '@/services/admin/nft-collection';
 import { CreateNftCollectionParams } from '@/services/admin/nft-collection/types';
 
+export type UseMutateCreateNftCollectionParams = {
+  symbol: string;
+} & CreateNftCollectionParams;
+
 export const useMutateCreateNftCollection = (
   options?: UseMutationOptions<
     unknown,
     unknown,
-    CreateNftCollectionParams,
+    UseMutateCreateNftCollectionParams,
     unknown
   >
 ) => {

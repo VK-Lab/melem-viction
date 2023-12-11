@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import _ from 'lodash';
 import { InjectModel } from '@nestjs/mongoose';
 import { FilterQuery, Model, Types, UpdateWriteOpResult } from 'mongoose';
 
@@ -12,6 +11,13 @@ export class NftCollectionService {
   constructor(
     @InjectModel(NftCollection.name) private nftCollectionModel: Model<NftCollectionDocument>,
   ) {}
+
+  public async getByUid(uid: string): Promise<NftCollection | null> {
+    const nftCollection = await this.nftCollectionModel.findOne({ uid });
+
+    return nftCollection;
+  }
+
 
   public async getNftCollections({ page, limit }: PaginationDto): Promise<ListDto<NftCollection>> {
     const nftCollections = await this.nftCollectionModel

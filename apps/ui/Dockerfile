@@ -1,4 +1,4 @@
-FROM node:16.16.0 AS base
+FROM node:18.19.0 AS base
 WORKDIR /app
 
 # Build BASE
@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package.json yarn.lock ./
 RUN apt update \
     && apt install git python3 make g++ -y \
-    && yarn install --frozen-lockfile --ignore-scripts \
+    && yarn install --ignore-scripts \
     && yarn cache clean
 
 # Build Image

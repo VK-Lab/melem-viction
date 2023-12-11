@@ -3,7 +3,6 @@ import { Transform } from 'class-transformer';
 import { isArray, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { Types } from 'mongoose';
 
-
 export class CreateNftCollectionDto {
   @ApiProperty()
   @IsString()
@@ -29,6 +28,11 @@ export class CreateNftCollectionDto {
   @IsString()
   @IsNotEmpty()
   public contractType!: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  public uid!: string;
 
   @ApiPropertyOptional()
   @IsOptional()

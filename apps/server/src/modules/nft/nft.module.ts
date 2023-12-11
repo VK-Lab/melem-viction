@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 
+import { NftCollectionModule } from '../nft-collection';
+
 import { NftService } from './nft.service';
 import { NftController } from './nft.controller';
 import { Nft, NftSchema } from './schemas';
@@ -12,6 +14,7 @@ import { BenefitModule } from '@/modules/benefit';
 
 @Module({
   imports: [
+    NftCollectionModule,
     ClaimModule,
     UserModule,
     BenefitModule,

@@ -43,5 +43,4 @@
     "dist",
     "**/dist/**"
   ],
-  "extends": "../../tsconfig.base.json",
 }
