@@ -9,6 +9,7 @@ import { MutationKeys } from '@/enums/mutationKeys.enum';
 import { useEthersSigner } from '@/hooks/useEthers';
 import { createNftCollection } from '@/services/admin/nft-collection';
 import { CreateNftCollectionParams } from '@/services/admin/nft-collection/types';
+import { generateMetadataBaseUrl, generateMetadataUrl } from '@/utils/metadata';
 
 export type UseMutateCreateNftCollectionParams = {
   symbol: string;
@@ -39,8 +40,12 @@ export const useMutateCreateNftCollection = (
         await sdk.deployer.deployPublishedContract(
           '0xCE16CDf11574629cAC4550D1f215e6e393eB4C5D',
           'NFTSimple',
-          [params.name, params.symbol, Config.metadataBaseUrl],
-          '1.0.1'
+          [
+            params.name,
+            params.symbol,
+            `${generateMetadataBaseUrl(params.uid)}/`,
+          ],
+          '1.0.2'
         );
 
       return createNftCollection({

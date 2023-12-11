@@ -48,18 +48,7 @@ const StyledText = styled(Typography)(({ theme }) => ({
 const EmptyData = () => {
   return (
     <Box sx={{ maxWidth: '100%', textAlign: 'center' }}>
-      <StyledText variant="h5">
-        You do not have any D2E NFTs yet
-        <StyledButtonLink
-          variant="contained"
-          component={Link}
-          target="_blank"
-          href="https://testnets.opensea.io/collection/d2e-cards-v2"
-          rel="noopener noreferrer"
-        >
-          Buy your first NFT
-        </StyledButtonLink>
-      </StyledText>
+      <StyledText variant="h5">You do not have any NFTs yet</StyledText>
       <StyledImage src={ImgNoData} alt="Empty data" />
     </Box>
   );

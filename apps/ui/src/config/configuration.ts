@@ -1,7 +1,7 @@
-import { vicTestNet } from './chains';
+import { vicMainnet } from './chains';
 
 export const Config = {
-  chainId: Number(process.env.NEXT_PUBLIC_CHAIN_ID || vicTestNet.id),
+  chainId: Number(process.env.NEXT_PUBLIC_CHAIN_ID || vicMainnet.id),
   apiBaseUrl:
     process.env.NEXT_PUBLIC_API_URL || 'https://api-viction.melem.io/v1',
   metadataBaseUrl:
