@@ -5,7 +5,7 @@ WORKDIR /app
 FROM base as deps
 
 WORKDIR /app
-COPY package.json yarn.lock ./
+COPY package.json ./
 RUN apt update \
     && apt install git python3 make g++ -y \
     && yarn install --ignore-scripts \

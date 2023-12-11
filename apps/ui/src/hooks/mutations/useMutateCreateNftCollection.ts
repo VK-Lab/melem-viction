@@ -4,6 +4,7 @@ import _get from 'lodash/get';
 import { useMutation, UseMutationOptions } from 'react-query';
 
 import { useI18nToast } from '../useToast';
+import { Config } from '@/config';
 import { MutationKeys } from '@/enums/mutationKeys.enum';
 import { useEthersSigner } from '@/hooks/useEthers';
 import { createNftCollection } from '@/services/admin/nft-collection';
@@ -38,8 +39,8 @@ export const useMutateCreateNftCollection = (
         await sdk.deployer.deployPublishedContract(
           '0xCE16CDf11574629cAC4550D1f215e6e393eB4C5D',
           'NFTSimple',
-          [params.name, 'Test', 'https://testnet-vic-api.melem.io/'],
-          '1.0.0'
+          [params.name, params.symbol, Config.metadataBaseUrl],
+          '1.0.1'
         );
 
       return createNftCollection({

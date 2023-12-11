@@ -1,10 +1,11 @@
-name: Build And Deploy Testnet
+name: Build And Deploy API Testnet
 
 on:
   push:
     branches:
       - develop
       - ci/deploy-testnet
+      - ci/build-testnet
 
 jobs:
   build:
@@ -17,33 +18,19 @@ jobs:
       -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
-      # -
-        # name: Login to Docker Hub
-        # uses: docker/login-action@v2
-        # with:
-        #   registry: registry.gitlab.com
-        #   username: ${{ secrets.DOCKERHUB_USERNAME }}
-        #   password: ${{ secrets.DOCKERHUB_PASSWORD }}
-      # -
-      #   name: Build and push
-      #   run: |
-      #     export REGISTY_URL=registry.gitlab.com/blhl1210/hub:d2e-dashboard
-      #     docker build --pull --rm -f "Dockerfile" -t d2e-dashboard:latest "."
-      #     docker login registry.gitlab.com -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
-      #     docker tag d2e-dashboard:latest ${REGISTY_URL}
-      #     docker push ${REGISTY_URL}
-
-  # deploy:
-  #   needs: build
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - name: Re-run docker compose
-  #     uses: appleboy/ssh-action@v0.1.10
-  #     with:
-  #       host: ${{ secrets.SSH_HOST }}
-  #       username: ${{ secrets.SSH_USERNAME }}
-  #       key: ${{ secrets.SSH_PRIVATE_KEY }}
-  #       port: ${{ secrets.PORT }}
-  #       script: |
-  #         sudo docker pull blhl1210/mlem-ui:dev
-  #         cd /home/ubuntu/mlem-dashboard && sudo docker compose -f "docker-compose.yml" up -d --build
+      -
+        name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          registry: registry.gitlab.com
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+      -
+        name: Build and push
+        run: |
+          cd ./apps/server
+          export REGISTY_URL=registry.gitlab.com/blhl1210/hub:melem-viction-api
+          docker build --pull --rm -f "./Dockerfile" -t melem-viction-api:latest "."
+          docker login registry.gitlab.com -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
+          docker tag melem-viction-api:latest ${REGISTY_URL}
+          docker push ${REGISTY_URL}
