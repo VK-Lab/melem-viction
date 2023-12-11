@@ -3,9 +3,12 @@ import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { Types } from 'mongoose';
 
 import { NftCollectionService } from '../nft-collection';
+import { NftScanService } from '../nft-scan/nft-scan.service';
+import { NftScanEvmAsset } from '../nft-scan/interfaces/nft-scan-asset.interface';
 
 import { NftService } from './nft.service';
 import { Erc721Metadata, NftId } from './interfaces';
+import { NftDetailDto } from './dtos/nft-detail.dto';
 
 import { Auth, ParseObjectId, ReqUser } from '@/common';
 import { Payload } from '@/auth';
@@ -16,6 +19,7 @@ export class NftController {
   constructor(
     private readonly nftService: NftService,
     private readonly nftCollectionService: NftCollectionService,
+    private readonly nftScanService: NftScanService,
   ) {}
 
   @Get('by-uid/:uid/:tokenId/metadata')
@@ -32,15 +36,47 @@ export class NftController {
     return this.nftService.getNftMetadata(nftCollection?.tokenAddress, tokenId);
   }
 
-  // @Get('/')
-  // @HttpCode(HttpStatus.OK)
-  // @Auth()
-  // @ApiOkResponse({
-  //   description: 'Get nfts',
-  // })
-  // public async getNfts(@ReqUser() user: Payload, @Query() getNftsDto: GetNftsDto): Promise<NftDetailDto[]> {
-  //   return this.nftService.getNfts(user, getNftsDto);
-  // }
+  @Get('/')
+  @HttpCode(HttpStatus.OK)
+  @Auth()
+  @ApiOkResponse({
+    description: 'Get nfts',
+  })
+  public async getNfts(@ReqUser() user: Payload): Promise<NftDetailDto[]> {
+    const nfts = await this.nftScanService.getAssetsByAccount(user.walletAddress);
+    const nftConditions = nfts.map((nft: NftScanEvmAsset) => ({
+      tokenAddress: nft.contract_address,
+      tokenId: nft.token_id,
+    }));
+
+    return this.nftService.filterNftsByTokenAddressAndId(nftConditions);
+  }
+
+  @Get('/:tokenAddress/:tokenId')
+  @HttpCode(HttpStatus.OK)
+  @Auth()
+  @ApiOkResponse({
+    description: 'Get nfts',
+  })
+  public async getNftByTokenAddressAndId(
+    @ReqUser() user: Payload,
+      @Param('tokenAddress') tokenAddress: string,
+      @Param('tokenId') tokenId: string,
+  ): Promise<NftDetailDto> {
+    const nft = await this.nftScanService.getAssetByContractAddressAndTokenId(tokenAddress, tokenId);
+    if (nft.owner.toLowerCase() !== user.walletAddress.toLowerCase()) {
+      throw new Error('NFT not found');
+    }
+
+    const foundNft = await this.nftService.findNftByTokenAddressAndId(tokenAddress, tokenId);
+
+    if (!foundNft) {
+      throw new Error('NFT not found');
+    }
+
+    return foundNft;
+  }
+
 
   @Post(':nftId/benefits/:benefitId/claim')
   @HttpCode(HttpStatus.OK)

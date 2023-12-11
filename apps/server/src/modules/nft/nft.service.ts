@@ -62,7 +62,57 @@ export class NftService {
 
     return {
       ...nftData,
-      benefits: <NftDetailDto['benefits']> this.getAllBenefitsWithCollection(foundNft),
+      benefits:  this.getAllBenefitsWithCollection(foundNft),
+    };
+  }
+
+  public async filterNftsByTokenAddressAndId(nftConditions: { tokenAddress: string; tokenId: string }[]): Promise<NftDetailDto[]> {
+    const foundNfts = await this.nftModel
+      .find({
+        $or: nftConditions,
+      })
+      .populate('benefits', '_id name')
+      .populate({
+        path: 'nftCollection',
+        select: 'benefitIds name description',
+        populate: {
+          path: 'benefits',
+          select: 'id name',
+        },
+      });
+
+    return foundNfts.map((nft: NftDocument) => {
+      const nftData = <Nft>nft.toJSON();
+
+      return {
+        ...nftData,
+        benefits: this.getAllBenefitsWithCollection(nft),
+      };
+    },
+    );
+  }
+
+  public async findNftByTokenAddressAndId(tokenAddress: string, tokenId: string): Promise<NftDetailDto | null> {
+    const foundNft = await this.nftModel.findOne({
+      tokenAddress: tokenAddress.toLowerCase(),
+      tokenId,
+    }).populate('benefits', '_id name')
+      .populate({
+        path: 'nftCollection',
+        select: 'benefitIds name description',
+        populate: {
+          path: 'benefits',
+          select: 'id name',
+        },
+      });
+
+    if (!foundNft) {
+      return null;
+    }
+
+    return <NftDetailDto> {
+      ...foundNft.toJSON(),
+      benefits: this.getAllBenefitsWithCollection(foundNft),
     };
   }
 
