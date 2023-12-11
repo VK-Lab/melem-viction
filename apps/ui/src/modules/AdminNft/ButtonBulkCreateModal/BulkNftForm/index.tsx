@@ -134,12 +134,12 @@ const BulkNftForm = ({ onSuccess }: Props) => {
       <StyledTextFieldElement
         name="name"
         label="Name"
-        placeholder={'D2E Card #[id]'}
+        placeholder={'Card #[id]'}
         required
       />
       <StyledTextFieldElement
         name="description"
-        placeholder="D2E Description [id]"
+        placeholder="Description [id]"
         label="Description"
       />
       <StyledTextFieldElement

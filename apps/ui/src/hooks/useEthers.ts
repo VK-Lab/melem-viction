@@ -9,7 +9,7 @@ import {
   useWalletClient,
 } from 'wagmi';
 
-import { vicTestNet } from '@/config/chains';
+import { vicMainnet } from '@/config/chains';
 
 function publicClientToProvider(publicClient: PublicClient) {
   const { chain, transport } = publicClient;
@@ -39,8 +39,8 @@ export function useEthersProvider({ chainId }: { chainId?: number } = {}) {
 function walletClientToSigner(walletClient: WalletClient) {
   const { account, transport } = walletClient;
   const network = {
-    chainId: vicTestNet?.id,
-    name: vicTestNet?.name,
+    chainId: vicMainnet?.id,
+    name: vicMainnet?.name,
   };
   const provider = new providers.Web3Provider(transport, network);
   const signer = provider.getSigner(account.address);

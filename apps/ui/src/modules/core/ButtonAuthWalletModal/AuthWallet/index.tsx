@@ -70,7 +70,7 @@ const AuthWallet = ({ onSuccess }: Props) => {
       </Typography>
       <Box sx={{ mb: 2.5 }}>
         <Typography variant="h5" gutterBottom>
-          Download D2E Loyalty App
+          Download Melem Loyalty App
         </Typography>
         <Typography variant="body2" gutterBottom>
           Download the Loyalty App and register new account to earn our

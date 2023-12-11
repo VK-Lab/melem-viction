@@ -13,7 +13,7 @@ import {
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 
 import { useI18nToast } from './useToast';
-import { vicTestNet } from '@/config/chains';
+import { vicMainnet } from '@/config/chains';
 import { getNonce, login } from '@/services/auth';
 import { LoginParams, LoginResponse } from '@/services/auth/types';
 
@@ -38,7 +38,7 @@ const useAuthWallet = ({
     const message = new SiweMessage({
       domain: window.location.host,
       address: walletAddress,
-      statement: 'Sign in with D2E to the app.',
+      statement: 'Sign in with Melem to the app.',
       uri: window.location.origin,
       version: '1',
       chainId: chainId,
@@ -83,7 +83,7 @@ const useSignIn = ({ onLoginSuccess, defaultChainId }: Props) => {
 
   const { chain: activeChain } = useNetwork();
   const { connect } = useConnect({
-    chainId: vicTestNet.id,
+    chainId: vicMainnet.id,
     connector: new MetaMaskConnector(),
     onSuccess: async (data) => {
       const { account, chain } = data;

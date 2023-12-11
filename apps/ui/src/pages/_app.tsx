@@ -12,7 +12,7 @@ import { WagmiConfig, configureChains, createConfig } from 'wagmi';
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 import { publicProvider } from 'wagmi/providers/public';
 
-import { vicTestNet } from '@/config/chains';
+import { vicMainnet } from '@/config/chains';
 import RouterGuard from '@/hocs/RouterGuard';
 import Web3AuthContainer from '@/modules/AuthContainer';
 import store from '@/store';
@@ -22,7 +22,7 @@ import '@/assets/styles.css';
 import 'react-toastify/dist/ReactToastify.css';
 
 const { chains, publicClient } = configureChains(
-  [vicTestNet],
+  [vicMainnet],
   [publicProvider()]
 );
 
@@ -42,11 +42,11 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>D2E Dashboard</title>
+        <title>Melem Dashboard</title>
         <link rel="shortcut icon" href="/img/chakra-logo.png" />
         <link rel="apple-touch-icon" href="/img/chakra-logo.png" />
         <link rel="manifest" href="/manifest.json" />
-        <meta name="description" content="D2E Dashboard" />
+        <meta name="description" content="Melem Dashboard" />
       </Head>
       <ThemeProvider theme={theme}>
         <Provider store={store}>
