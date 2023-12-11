@@ -4,12 +4,11 @@ import _get from 'lodash/get';
 import { useMutation, UseMutationOptions } from 'react-query';
 
 import { useI18nToast } from '../useToast';
-import { Config } from '@/config';
 import { MutationKeys } from '@/enums/mutationKeys.enum';
 import { useEthersSigner } from '@/hooks/useEthers';
 import { createNftCollection } from '@/services/admin/nft-collection';
 import { CreateNftCollectionParams } from '@/services/admin/nft-collection/types';
-import { generateMetadataBaseUrl, generateMetadataUrl } from '@/utils/metadata';
+import { generateMetadataBaseUrl } from '@/utils/metadata';
 
 export type UseMutateCreateNftCollectionParams = {
   symbol: string;

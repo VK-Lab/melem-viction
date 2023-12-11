@@ -1,14 +1,8 @@
-import { Link, Button, ButtonProps, Typography, Box } from '@mui/material';
+import { Typography, Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Image from 'next/future/image'; // No wrapper
 
 import ImgNoData from '@/assets/images/img--no-data.webp';
-
-interface ButtonLinkProps extends ButtonProps {
-  component: React.ComponentType;
-  target: string;
-  rel: string;
-}
 
 const StyledImage = styled(Image)(() => ({
   maxWidth: 720,
@@ -20,21 +14,6 @@ const StyledImage = styled(Image)(() => ({
   position: 'relative',
   zIndex: 5,
   top: -30,
-}));
-
-const StyledButtonLink = styled((props: ButtonLinkProps) => (
-  <Button {...props} />
-))(({ theme }) => ({
-  backgroundColor: theme.palette.primary.main,
-  color: theme.palette.primary.contrastText,
-  boxShadow: '7px 8px 18px 0px rgb(0 0 0 / 10%)',
-  fontSize: theme.typography.pxToRem(16),
-  fontWeight: 600,
-  padding: '12px 24px',
-  marginLeft: theme.spacing(1),
-  '&:hover': {
-    borderColor: theme.palette.primary.main,
-  },
 }));
 
 const StyledText = styled(Typography)(({ theme }) => ({
