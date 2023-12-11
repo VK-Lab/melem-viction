@@ -59,6 +59,8 @@ export declare global {
       IS_DEBUGGING: string;
 
       TELEGRAM_D2E_CHANNEL_ID: string;
+
+      NFTSCAN_API_KEY: string;
     }
   }
 

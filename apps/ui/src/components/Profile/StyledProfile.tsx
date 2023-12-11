@@ -8,23 +8,6 @@ const Profile = styled(Box)`
 
   .profile {
     &--image {
-      background-color: white;
-      flex: 0 0 auto;
-      width: 160px;
-      box-shadow: ${(p) => p.theme.shadows[12]};
-      transition-duration: ${(p) => p.theme.transitions.duration.short}ms;
-      border-radius: 50%;
-      padding: 6px;
-
-      &:hover {
-        box-shadow: ${(p) => p.theme.shadows[16]};
-      }
-
-      img {
-        max-width: 100%;
-        display: block;
-        border-radius: 50%;
-      }
     }
 
     &--username {

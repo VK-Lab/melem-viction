@@ -30,4 +30,8 @@ export const config = {
     serverUri: 'https://id.cnv.vn',
     token: process.env.CNV_LOYALTY_TOKEN,
   },
+
+  nftScan: {
+    apiKey: process.env.NFTSCAN_API_KEY,
+  },
 };

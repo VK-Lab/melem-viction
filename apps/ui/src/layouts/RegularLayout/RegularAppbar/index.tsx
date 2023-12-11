@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import MenuIcon from '@mui/icons-material/Menu';
 import AppBar from '@mui/material/AppBar';
-import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
@@ -14,8 +13,10 @@ import Typography from '@mui/material/Typography';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 import { useMutation } from 'react-query';
+import { useAccount } from 'wagmi';
 
 import { StyledContainer } from './styled';
+import Avatar from '@/components/Avatar';
 import GLogo from '@/components/GLogo';
 import { CookieKeys } from '@/enums/cookieKeys.enum';
 import { PublicPaths } from '@/enums/paths.enum';
@@ -31,6 +32,7 @@ const settings = [
 
 function RegularAppbar() {
   const router = useRouter();
+  const { address } = useAccount();
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -155,7 +157,7 @@ function RegularAppbar() {
             </Button> */}
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, ml: 1.5 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar name={address || ''} />
               </IconButton>
             </Tooltip>
 

@@ -9,4 +9,5 @@ export const StyledButton = styled(Button)`
   font-size: ${(props) => props.theme.typography.pxToRem(14)};
   border-radius: ${(props) => props.theme.spacing(4)};
   margin-top: ${(props) => props.theme.spacing(3)};
+  width: 100%;
 `;

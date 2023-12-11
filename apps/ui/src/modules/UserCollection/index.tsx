@@ -2,7 +2,6 @@ import { useState, SyntheticEvent } from 'react';
 
 import WalletIcon from '@mui/icons-material/Wallet';
 import { Grid, Tabs, Box, Typography, Container } from '@mui/material';
-import Avatar from '@mui/material/Avatar';
 import _get from 'lodash/get';
 import { useAccount } from 'wagmi';
 
@@ -12,6 +11,7 @@ import {
   BoxProfileWrapper,
   BoxProfile,
 } from './styled';
+import Avatar from '@/components/Avatar';
 import {
   StyledNFTTabContent,
   StyledNFTTab,
@@ -25,16 +25,13 @@ import RegularLayout from '@/layouts/RegularLayout';
 import { ButtonAuthWalletModal } from '@/modules/core/ButtonAuthWalletModal';
 
 export const ProfileInfo = () => {
+  const { address } = useAccount();
   const { data: profile } = useGetMyProfile();
 
   return (
     <Profile className="profile">
       <Box className="profile--image">
-        <Avatar
-          alt="Remy Sharp"
-          src="/static/images/avatar/2.jpg"
-          sx={{ height: '148px', width: '148px' }}
-        />
+        <Avatar name={address || ''} size={150} />
       </Box>
       <Box className="profile--username">
         <Typography className="user-alias" variant="h3">

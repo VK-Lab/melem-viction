@@ -15,6 +15,7 @@ import { WalletModule } from '@/modules/wallet';
 import { NftModule } from '@/modules/nft';
 import { UserModule } from '@/modules/user';
 import { CampaignModule } from '@/modules/campaign';
+import { NftScanModule } from './modules/nft-scan/nft-scan.module';
 
 @Module({
   imports: [
@@ -57,6 +58,7 @@ import { CampaignModule } from '@/modules/campaign';
     BenefitModule,
     ClaimModule,
     CampaignModule,
+    NftScanModule,
   ],
 })
 export class AppModule implements NestModule {
