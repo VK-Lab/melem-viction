@@ -1,22 +1,21 @@
 import { ErcType, EvmChain, NftscanEvm } from 'nftscan-api';
+import { Injectable } from '@nestjs/common';
 
 import { NftScanEvmAsset } from './interfaces/nft-scan-asset.interface';
 
-import { ConfigService, Logger } from '@/common';
+import { ConfigService } from '@/common';
 
-
+@Injectable()
 export class NftScanService {
   private evm: NftscanEvm;
 
   constructor(
     private readonly config: ConfigService,
-    private readonly logger: Logger,
   ) {
-    this.logger.setContext(NftScanService.name);
 
     this.evm = new NftscanEvm({
       apiKey: this.config.get('nftScan.apiKey'),
-      chain: EvmChain.ETH,
+      chain: EvmChain.VICTION,
     });
   }
 
@@ -30,4 +29,18 @@ export class NftScanService {
 
     return response.content;
   }
+
+  public async getAssetByContractAddressAndTokenId(
+    contractAddress: string,
+    tokenId: string,
+  ): Promise<NftScanEvmAsset> {
+    const response = await this.evm.asset.getAssetsByContractAndTokenId(
+      contractAddress,
+      tokenId,
+      true,
+    );
+
+    return response;
+  }
+
 }
