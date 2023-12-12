@@ -40,6 +40,21 @@ export class NftService {
     return this.nftModel.findOne({ tokenAddress, tokenId });
   }
 
+  public async findByIdAndPopulatedBenefits(id: Types.ObjectId): Promise<NftDocument | null> {
+    const foundNft = await this.nftModel.findById(id).populate('benefits', '_id name')
+      .populate({
+        path: 'nftCollection',
+        select: 'benefitIds name description',
+        populate: {
+          path: 'benefits',
+          select: 'id name',
+        },
+      })
+      .populate('claims', '_id benefitId status');
+
+    return foundNft;
+  }
+
   public async getNft({ tokenAddress, tokenId }: { tokenAddress: string; tokenId: string }): Promise<NftDetailDto> {
     const foundNft = await this.nftModel
       .findOne({ tokenAddress: tokenAddress.toLowerCase(), tokenId })
@@ -172,10 +187,10 @@ export class NftService {
     };
   }
 
-  public async cliamBenefit(user: Payload, nftId: Types.ObjectId, benefitId: Types.ObjectId): Promise<NftId> {
+  public async claimBenefit(user: Payload, nftId: Types.ObjectId, benefitId: Types.ObjectId): Promise<NftId> {
     const foundUser = await this.userService.findById(user.userId);
-    if (!foundUser?.isVerifyPhone) {
-      throw new ForbiddenException('user_has_not_permission');
+    if (!foundUser) {
+      throw new ForbiddenException('user_not_found');
     }
     const foundNft = await this.nftModel.findById(nftId);
     if (!foundNft) {
@@ -226,7 +241,7 @@ export class NftService {
     this.logger.log(`Inserted ${result.insertedCount} and modified ${result.modifiedCount}`);
   }
 
-  private getAllBenefitsWithCollection(nft: Nft): Benefit[] {
+  public getAllBenefitsWithCollection(nft: Nft): Benefit[] {
     const collectionBenefits = <Benefit[]>_.get(nft, 'nftCollection.benefits', []);
 
     const benefits = _.concat(<Benefit[]>nft.benefits, collectionBenefits);

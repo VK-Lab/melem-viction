@@ -6,16 +6,16 @@ import { StyledListItemIcon } from './styled';
 import { QueryKeys } from '@/enums/queryKeys.enum';
 import { useMutateClaimBenefit } from '@/hooks/mutations';
 import { useCheckPhoneVerfied } from '@/hooks/queries';
+import { useGetNftBenefits } from '@/hooks/queries/useGetNftBenefits';
 import { Benefit } from '@/types/benefit';
-import { NftClaim } from '@/types/nft';
+import { ClaimStatusEnum } from '@/types/claim';
 
 type Props = {
   nftId?: string;
-  benefits?: Benefit[];
-  claims?: NftClaim[];
 };
 
-const ListBenefits = ({ nftId, benefits = [], claims = [] }: Props) => {
+const ListBenefits = ({ nftId }: Props) => {
+  const { data: benefits = [] } = useGetNftBenefits({ nftId });
   const { data: { isPhoneVerfied } = { isPhoneVerfied: false } } =
     useCheckPhoneVerfied();
   const queryClient = useQueryClient();
@@ -38,10 +38,8 @@ const ListBenefits = ({ nftId, benefits = [], claims = [] }: Props) => {
   return (
     <Box sx={{ maxWidth: 480 }}>
       {benefits.map((benefit: Benefit) => {
-        const foundClaim = claims.find(
-          (claim: NftClaim) => claim.benefitId === benefit.id
-        );
-        const txt = foundClaim ? foundClaim.status : 'Claim';
+        const isReadyClaim = benefit.claimStatus === ClaimStatusEnum.READY;
+        const txt = isReadyClaim ? 'Claim' : benefit.claimStatus;
         const isClaiming =
           claimNftMutation.isLoading &&
           claimNftMutation.variables?.benefitId === benefit.id;
@@ -55,8 +53,8 @@ const ListBenefits = ({ nftId, benefits = [], claims = [] }: Props) => {
               <Button
                 sx={{ minWidth: 120 }}
                 size="small"
-                disabled={!!foundClaim || isClaiming || !isPhoneVerfied}
-                variant={foundClaim ? 'text' : 'contained'}
+                disabled={!isReadyClaim || isClaiming || !isPhoneVerfied}
+                variant={!isReadyClaim ? 'text' : 'contained'}
                 onClick={() => handleOnClickClaimBenefit(benefit)}
               >
                 {isClaiming ? 'Claiming...' : txt}
@@ -64,7 +62,7 @@ const ListBenefits = ({ nftId, benefits = [], claims = [] }: Props) => {
             }
           >
             <StyledListItemIcon>
-              <CheckIcon color={foundClaim ? 'primary' : 'disabled'} />
+              <CheckIcon color={!isReadyClaim ? 'primary' : 'disabled'} />
             </StyledListItemIcon>
             <ListItemText
               sx={{
