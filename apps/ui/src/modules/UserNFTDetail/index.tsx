@@ -118,11 +118,7 @@ const UserNFTDetail = () => {
                     Benefits
                   </Typography>
                   <StyledBoxBenefitsWrapper>
-                    <ListBenefits
-                      nftId={nft?.id}
-                      benefits={nft?.benefits}
-                      claims={nft?.claims}
-                    />
+                    <ListBenefits nftId={nft?.id} />
                   </StyledBoxBenefitsWrapper>
                 </Box>
                 <Box mt={4}>

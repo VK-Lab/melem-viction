@@ -3,6 +3,7 @@ import { Nft } from './nft';
 import { User } from './user';
 
 export enum ClaimStatusEnum {
+  READY = 'ready',
   PENDING = 'pending',
   ACCEPTED = 'accepted',
   REJECTED = 'rejected',

@@ -1,4 +1,8 @@
-import { ClaimNftBenefitParams, ClaimNftBenefitResponse } from './types';
+import {
+  ClaimNftBenefitParams,
+  ClaimNftBenefitResponse,
+  GetNftBenefitsResponse,
+} from './types';
 import { Nft } from '@/types/nft';
 import request from '@/utils/request';
 
@@ -18,4 +22,10 @@ export const claimNftBenefit = ({
   benefitId,
 }: ClaimNftBenefitParams): Promise<ClaimNftBenefitResponse> => {
   return request.post(`/nfts/${nftId}/benefits/${benefitId}/claim`);
+};
+
+export const getNftBenefits = (
+  nftId?: string
+): Promise<GetNftBenefitsResponse> => {
+  return request.get(`/nfts/${nftId}/benefits`);
 };
