@@ -1,4 +1,4 @@
-import { Chip, Typography, Box } from '@mui/material';
+import { Typography, Box } from '@mui/material';
 
 import { StyledNFTItem } from './styled';
 import { CardImage } from '@/components/CardImage';
@@ -10,12 +10,7 @@ export type NFTItemProps = {
   description?: string;
 };
 
-const NFTItem = ({
-  image = '',
-  name,
-  description,
-  contractType,
-}: NFTItemProps) => {
+const NFTItem = ({ image = '', name, description }: NFTItemProps) => {
   return (
     <StyledNFTItem>
       <Box className="nft-grid--image">
@@ -27,12 +22,6 @@ const NFTItem = ({
           {description}
         </Typography>
       </Box>
-      <Chip
-        className="nft-grid--contractType"
-        label={contractType}
-        color="info"
-        size="small"
-      />
     </StyledNFTItem>
   );
 };

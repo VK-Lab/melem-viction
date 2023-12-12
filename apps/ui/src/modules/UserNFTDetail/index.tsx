@@ -67,10 +67,6 @@ const UserNFTDetail = () => {
       label: 'Token ID',
       value: nft?.tokenId,
     },
-    {
-      label: 'Contract Type',
-      value: nft?.contractType,
-    },
   ];
   return (
     <RegularLayout>
@@ -93,12 +89,6 @@ const UserNFTDetail = () => {
                     sx={{ fontSize: 38, fontWeight: 700 }}
                   >
                     {nft?.name}
-                  </Typography>
-                  <Typography
-                    variant="h6"
-                    sx={{ fontSize: 13, fontWeight: 500 }}
-                  >
-                    Creator: <strong>{formatAddress(nft?.ownerOf)}</strong>
                   </Typography>
                 </Box>
                 <Box>
