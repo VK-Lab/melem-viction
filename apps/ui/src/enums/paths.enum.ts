@@ -4,6 +4,7 @@ export enum PrivatePaths {
 }
 
 export enum AdminPaths {
+  HOME = '/admin',
   DASHBOARD = '/admin/campaigns',
   CLAIMS = '/admin/claims',
   BENEFITS = '/admin/benefits',

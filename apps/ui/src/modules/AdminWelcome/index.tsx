@@ -8,7 +8,7 @@ import {
   StyledWelcomePage,
   BoxGradientBG,
 } from './styled';
-import AdminLoginButton from '@/modules/core/AdminLoginButton';
+import AdminLoginButton from '@/modules/@core/AdminLoginButton';
 import imageWelcome from '~/public/img/background.jpeg';
 import Logo from '~/public/img/logo.png';
 

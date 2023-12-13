@@ -8,12 +8,9 @@ import { appWithTranslation } from 'next-i18next';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
-import { WagmiConfig, configureChains, createConfig } from 'wagmi';
-import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
-import { publicProvider } from 'wagmi/providers/public';
 
-import { vicMainnet } from '@/config/chains';
 import RouterGuard from '@/hocs/RouterGuard';
+import { Web3Modal } from '@/modules/@hocs/Web3Modal';
 import Web3AuthContainer from '@/modules/AuthContainer';
 import store from '@/store';
 import theme from '@/theme';
@@ -21,22 +18,7 @@ import theme from '@/theme';
 import '@/assets/styles.css';
 import 'react-toastify/dist/ReactToastify.css';
 
-const { chains, publicClient } = configureChains(
-  [vicMainnet],
-  [publicProvider()]
-);
-
 function MyApp({ Component, pageProps }: AppProps) {
-  const [client] = useState(() =>
-    createConfig({
-      publicClient,
-      connectors: [
-        new MetaMaskConnector({
-          chains,
-        }),
-      ],
-    })
-  );
   const [queryClient] = useState(() => new QueryClient());
 
   return (
@@ -52,11 +34,12 @@ function MyApp({ Component, pageProps }: AppProps) {
         <Provider store={store}>
           <QueryClientProvider client={queryClient}>
             <CssBaseline />
-            <WagmiConfig config={client}>
+            <Web3Modal>
               <RouterGuard>
                 <Component {...pageProps} />
               </RouterGuard>
-            </WagmiConfig>
+              <Web3AuthContainer />
+            </Web3Modal>
             <ToastContainer
               position="top-right"
               autoClose={5000}
@@ -69,7 +52,6 @@ function MyApp({ Component, pageProps }: AppProps) {
               pauseOnHover
               theme="dark"
             />
-            <Web3AuthContainer />
           </QueryClientProvider>
         </Provider>
       </ThemeProvider>

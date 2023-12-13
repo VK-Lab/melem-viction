@@ -7,7 +7,7 @@ import { StyledTextFieldElement } from './styled';
 import ToastMessage from '@/components/Toast';
 import { QueryKeys } from '@/enums/queryKeys.enum';
 import { useMutateCreateCampaign } from '@/hooks/mutations';
-import SelectNftCollectionsField from '@/modules/core/SelectNftCollectionsField';
+import SelectNftCollectionsField from '@/modules/@core/SelectNftCollectionsField';
 import { CreateCampaignParams } from '@/services/admin/campaign/types';
 
 type Props = {

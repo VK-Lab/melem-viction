@@ -10,17 +10,12 @@ import MenuItem from '@mui/material/MenuItem';
 import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
-import Cookies from 'js-cookie';
-import { useRouter } from 'next/router';
-import { useMutation } from 'react-query';
 import { useAccount } from 'wagmi';
 
 import { StyledContainer } from './styled';
 import Avatar from '@/components/Avatar';
 import GLogo from '@/components/GLogo';
-import { CookieKeys } from '@/enums/cookieKeys.enum';
-import { PublicPaths } from '@/enums/paths.enum';
-import { logout } from '@/services/auth';
+import { useMutateLogout } from '@/hooks/mutations';
 
 const pages: string[] = [];
 const settings = [
@@ -31,7 +26,6 @@ const settings = [
 ];
 
 function RegularAppbar() {
-  const router = useRouter();
   const { address } = useAccount();
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
@@ -40,14 +34,7 @@ function RegularAppbar() {
     null
   );
 
-  const logoutMutation = useMutation({
-    mutationFn: logout,
-    mutationKey: 'logout',
-    onSuccess: () => {
-      Cookies.remove(CookieKeys.TOKEN);
-      router.push(PublicPaths.HOME);
-    },
-  });
+  const logoutMutation = useMutateLogout();
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
