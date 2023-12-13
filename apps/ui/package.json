@@ -73,7 +73,8 @@
     "prop-types": "^15.8.1",
     "redux-thunk": "^3.1.0",
     "boring-avatars": "^1.10.1",
-    "nanoid": "^5.0.4"
+    "nanoid": "^5.0.4",
+    "@web3modal/wagmi": "^3.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.14.3",

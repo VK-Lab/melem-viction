@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
+import { useWeb3Modal } from '@web3modal/wagmi/react';
 import _get from 'lodash/get';
 import { useMutation, UseMutationResult } from 'react-query';
 import { SiweMessage } from 'siwe';
@@ -70,7 +71,7 @@ const useAuthWallet = ({
 
 const useSignIn = ({ onLoginSuccess, defaultChainId }: Props) => {
   const { toastError } = useI18nToast();
-  const { address, isConnected } = useAccount();
+  const { address, isConnected, connector } = useAccount();
   const { switchNetworkAsync } = useSwitchNetwork();
 
   const loginMutation = useMutation({
@@ -82,6 +83,9 @@ const useSignIn = ({ onLoginSuccess, defaultChainId }: Props) => {
   });
 
   const { chain: activeChain } = useNetwork();
+
+  const { open } = useWeb3Modal();
+
   const { connect } = useConnect({
     chainId: vicMainnet.id,
     connector: new MetaMaskConnector(),
@@ -107,8 +111,21 @@ const useSignIn = ({ onLoginSuccess, defaultChainId }: Props) => {
     await signIn(walletAddress, chainId);
   };
 
+  useEffect(() => {
+    if (!address) {
+      return;
+    }
+    const callback = async () => {
+      const chainId = await connector?.getChainId();
+      await handleSignIn(address, chainId);
+    };
+
+    callback();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [address]);
+
   return {
-    connect,
+    connect: open,
     isConnected,
     address,
     handleSignIn,

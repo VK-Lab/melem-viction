@@ -8,7 +8,7 @@ import {
   StyledWelcomePage,
   BoxGradientBG,
 } from './styled';
-import ConnectionButton from '@/modules/core/ConnectionButton';
+import ConnectionButton from '@/modules/@core/ConnectionButton';
 import imageWelcome from '~/public/img/background.jpeg';
 import Logo from '~/public/img/logo.png';
 

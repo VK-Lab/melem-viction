@@ -12,7 +12,7 @@ import { StyledTextFieldElement } from './styled';
 import ToastMessage from '@/components/Toast';
 import { QueryKeys } from '@/enums/queryKeys.enum';
 import { useMutateUpdateCampaign } from '@/hooks/mutations';
-import SelectNftCollectionsField from '@/modules/core/SelectNftCollectionsField';
+import SelectNftCollectionsField from '@/modules/@core/SelectNftCollectionsField';
 import { UpdateCampaignParams } from '@/services/admin/campaign/types';
 import { Campaign } from '@/types/campaign';
 

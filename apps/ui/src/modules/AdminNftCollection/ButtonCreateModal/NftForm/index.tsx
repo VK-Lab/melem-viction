@@ -13,7 +13,7 @@ import {
   UseMutateCreateNftCollectionParams,
   useMutateCreateNftCollection,
 } from '@/hooks/mutations';
-import SelectBenefitsField from '@/modules/core/SelectBenefitsField';
+import SelectBenefitsField from '@/modules/@core/SelectBenefitsField';
 
 type NftFormProps = {
   onSuccess?: () => void;

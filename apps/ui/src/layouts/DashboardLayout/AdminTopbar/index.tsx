@@ -6,18 +6,14 @@ import {
   Typography,
   Tooltip,
   IconButton,
-  Avatar,
   Menu,
   MenuItem,
 } from '@mui/material';
-import Cookies from 'js-cookie';
-import { useRouter } from 'next/router';
-import { useMutation } from 'react-query';
+import { useAccount } from 'wagmi';
 
 import { StyledAppbar } from './styled';
-import { CookieKeys } from '@/enums/cookieKeys.enum';
-import { PublicPaths } from '@/enums/paths.enum';
-import { logout } from '@/services/auth';
+import Avatar from '@/components/Avatar';
+import { useMutateLogout } from '@/hooks/mutations';
 
 const settings = [
   {
@@ -31,17 +27,10 @@ export type Props = {
 };
 
 const Index = ({ children, drawerWidth }: Props) => {
-  const router = useRouter();
+  const { address } = useAccount();
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
-  const logoutMutation = useMutation({
-    mutationFn: logout,
-    mutationKey: 'logout',
-    onSuccess: () => {
-      Cookies.remove(CookieKeys.TOKEN);
-      router.push(PublicPaths.HOME);
-    },
-  });
+  const logoutMutation = useMutateLogout();
 
   const handleOpenUserMenu = (event: MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
@@ -73,10 +62,7 @@ const Index = ({ children, drawerWidth }: Props) => {
         <Box sx={{ flexGrow: 0 }}>
           <Tooltip title="Open settings">
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              <Avatar
-                alt="Remy Sharp"
-                src="https://i.pinimg.com/564x/a2/da/a9/a2daa9fad83e9cbad30e6ec0d1921104.jpg"
-              />
+              <Avatar name={address || ''} />
             </IconButton>
           </Tooltip>
           <Menu

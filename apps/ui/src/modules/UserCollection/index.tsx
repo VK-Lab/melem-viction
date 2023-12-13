@@ -22,7 +22,7 @@ import TabPanel from '@/components/TabPanel';
 import { useGetMyProfile } from '@/hooks/queries';
 import { StyledDashboardSection } from '@/layouts/DashboardLayout/styled';
 import RegularLayout from '@/layouts/RegularLayout';
-import { ButtonAuthWalletModal } from '@/modules/core/ButtonAuthWalletModal';
+import { ButtonAuthWalletModal } from '@/modules/@core/ButtonAuthWalletModal';
 
 export const ProfileInfo = () => {
   const { address } = useAccount();

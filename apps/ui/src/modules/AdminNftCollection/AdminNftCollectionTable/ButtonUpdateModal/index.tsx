@@ -11,7 +11,7 @@ import { StyledTextFieldElement } from './styled';
 import { QueryKeys } from '@/enums/queryKeys.enum';
 import { useMutateUpdateNftCollection } from '@/hooks/mutations';
 import { useI18nToast } from '@/hooks/useToast';
-import SelectBenefitsField from '@/modules/core/SelectBenefitsField';
+import SelectBenefitsField from '@/modules/@core/SelectBenefitsField';
 import { UpdateNftCollectionParams } from '@/services/admin/nft-collection/types';
 import { NftCollection } from '@/types/nft-collection';
 
