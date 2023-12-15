@@ -6,15 +6,12 @@ import { useMutation, UseMutationResult } from 'react-query';
 import { SiweMessage } from 'siwe';
 import {
   useAccount,
-  useConnect,
   useNetwork,
   useSignMessage,
   useSwitchNetwork,
 } from 'wagmi';
-import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 
 import { useI18nToast } from './useToast';
-import { vicMainnet } from '@/config/chains';
 import { getNonce, login } from '@/services/auth';
 import { LoginParams, LoginResponse } from '@/services/auth/types';
 
@@ -70,7 +67,6 @@ const useAuthWallet = ({
 };
 
 const useSignIn = ({ onLoginSuccess, defaultChainId }: Props) => {
-  const { toastError } = useI18nToast();
   const { address, isConnected, connector } = useAccount();
   const { switchNetworkAsync } = useSwitchNetwork();
 
@@ -86,17 +82,6 @@ const useSignIn = ({ onLoginSuccess, defaultChainId }: Props) => {
 
   const { open } = useWeb3Modal();
 
-  const { connect } = useConnect({
-    chainId: vicMainnet.id,
-    connector: new MetaMaskConnector(),
-    onSuccess: async (data) => {
-      const { account, chain } = data;
-      await handleSignIn(account, chain?.id);
-    },
-    onError: async (err: Error) => {
-      toastError(err.name);
-    },
-  });
   const { signIn, isSigning } = useAuthWallet({
     loginMutation,
   });
