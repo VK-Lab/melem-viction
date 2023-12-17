@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, Types, UpdateWriteOpResult } from 'mongoose';
+import { FilterQuery, Model, Types, UpdateWriteOpResult } from 'mongoose';
 
 import { Benefit, BenefitDocument } from './schemas';
 
@@ -29,9 +29,9 @@ export class BenefitService {
     });
   }
 
-  public async getBenefits({ page, limit, sortBy, orderBy }: PaginationDto): Promise<ListDto<Benefit>> {
+  public async getBenefits(filterQuery: FilterQuery<Benefit>, { page, limit, sortBy, orderBy }: PaginationDto): Promise<ListDto<Benefit>> {
     const claims = await this.benefitModel
-      .find()
+      .find(filterQuery)
       .sort({
         [sortBy]: orderBy,
       })

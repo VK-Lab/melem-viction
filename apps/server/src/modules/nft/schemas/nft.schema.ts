@@ -34,6 +34,9 @@ export class Nft {
   @Prop()
   public tokenHash!: string;
 
+  @Prop()
+  public createdBy!: Types.ObjectId;
+
   @Prop({
     type: [Types.ObjectId],
     default: [],

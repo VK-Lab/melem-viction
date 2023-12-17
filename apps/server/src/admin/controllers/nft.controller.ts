@@ -3,15 +3,19 @@ import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { Types } from 'mongoose';
 
 import { BatchCreateNftsDto, CreateNftDto, GetNftsDto, UpdateNftDto } from '@/admin/dtos';
-import { AdminNftService } from '@/admin/services';
-import { Auth, ListDto, ParseObjectId, RoleEnum } from '@/common';
+import { AdminNftCollectionService, AdminNftService } from '@/admin/services';
+import { Auth, ListDto, ParseObjectId, ReqUser, RoleEnum } from '@/common';
 import { IdDto } from '@/common/dtos/id.dto';
 import { Nft } from '@/modules/nft';
+import { Payload } from '@/auth';
 
 @Controller('admin/nfts')
 @ApiTags('admin/nfts')
 export class AdminNftController {
-  constructor(private readonly adminNftService: AdminNftService) {}
+  constructor(
+    private readonly adminNftService: AdminNftService,
+    private readonly adminNftCollectionService: AdminNftCollectionService,
+  ) {}
 
   @ApiOkResponse({
     description: 'Get list nfts with pagination',
@@ -19,8 +23,12 @@ export class AdminNftController {
   })
   @Get('/')
   @Auth(RoleEnum.ADMIN)
-  public async getClaims(@Query() getNftsDto: GetNftsDto): Promise<ListDto<Nft>> {
-    return this.adminNftService.getNfts(getNftsDto);
+  public async getNfts(
+    @ReqUser() user: Payload,
+      @Query() getNftsDto: GetNftsDto): Promise<ListDto<Nft>> {
+    return this.adminNftService.getNfts({
+      createdBy: user.userId,
+    }, getNftsDto);
   }
 
   @Put(':id')
@@ -31,8 +39,13 @@ export class AdminNftController {
 
   @Post('/')
   @Auth(RoleEnum.ADMIN)
-  public async createNft(@Body() createNftDto: CreateNftDto): Promise<IdDto> {
-    return this.adminNftService.createNft(createNftDto);
+  public async createNft(
+    @ReqUser() user: Payload,
+      @Body() createNftDto: CreateNftDto): Promise<IdDto> {
+    return this.adminNftService.createNft({
+      ...createNftDto,
+      createdBy: user.userId,
+    });
   }
 
   @Post('/batchCreate')

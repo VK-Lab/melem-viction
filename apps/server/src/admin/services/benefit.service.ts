@@ -10,8 +10,8 @@ import { Benefit, BenefitService } from '@/modules/benefit';
 export class AdminBenefitService {
   constructor(private readonly benefitService: BenefitService) {}
 
-  public async getBenefits(getClaimsDto: GetBenefitsDto): Promise<ListDto<Benefit>> {
-    return this.benefitService.getBenefits(getClaimsDto);
+  public async getBenefits(userId: Types.ObjectId, getClaimsDto: GetBenefitsDto): Promise<ListDto<Benefit>> {
+    return this.benefitService.getBenefits({ createdBy: userId }, getClaimsDto);
   }
 
   public async createBenefit(userId: Types.ObjectId, createBenefitDto: CreateBenefitDto): Promise<Benefit> {

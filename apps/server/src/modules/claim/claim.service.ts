@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, Types, UpdateWriteOpResult } from 'mongoose';
+import { FilterQuery, Model, Types, UpdateWriteOpResult } from 'mongoose';
 
 import { Claim, ClaimDocument } from './schemas';
 import { CreateClaimDto } from './dtos';
@@ -24,17 +24,60 @@ export class ClaimService {
     }
   }
 
-  public async getClaims({ page, limit, sortBy, orderBy }: PaginationDto): Promise<ListDto<Claim>> {
-    const claims = await this.claimModel
-      .find()
-      .limit(limit * 1)
-      .sort({
-        [sortBy]: orderBy,
-      })
-      .skip((page - 1) * limit)
-      .populate('createdBy', 'phoneNumber walletAddress')
-      .populate('benefit', '_id name')
-      .populate('nft', '_id name tokenAddress tokenId');
+  public async getClaims(filterQuery: FilterQuery<Claim>, { page, limit, sortBy, orderBy }: PaginationDto): Promise<ListDto<Claim>> {
+    const claims =  await this.claimModel.aggregate([
+      { $sort: { [sortBy]: orderBy } },
+      { $skip: (page - 1) * limit },
+      { $limit: limit },
+      {
+        $lookup: {
+          from: 'users', // replace with the actual collection name for 'createdBy'
+          localField: 'createdBy',
+          foreignField: '_id',
+          as: 'createdBy',
+        },
+      },
+      {
+        $unwind: '$createdBy',
+      },
+      {
+        $lookup: {
+          from: 'benefits', // replace with the actual collection name for 'benefit'
+          localField: 'benefitId',
+          foreignField: '_id',
+          as: 'benefit',
+        },
+      },
+      {
+        $unwind: '$benefit',
+      },
+      {
+        $lookup: {
+          from: 'nfts', // replace with the actual collection name for 'nft'
+          localField: 'nftId',
+          foreignField: '_id',
+          as: 'nft',
+        },
+      },
+      {
+        $unwind: '$nft',
+      },
+      { $match: filterQuery },
+      {
+        $project: {
+          '_id': 1,
+          'id': '$_id',
+          'createdBy.walletAddress': 1,
+          'benefit._id': 1,
+          'benefit.name': 1,
+          'nft._id': 1,
+          'nft.name': 1,
+          'nft.tokenAddress': 1,
+          'nft.tokenId': 1,
+          'status': 1,
+        },
+      },
+    ]);
     return {
       items: claims,
       total: await this.claimModel.countDocuments(),

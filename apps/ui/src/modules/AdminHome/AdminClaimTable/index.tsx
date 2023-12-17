@@ -43,15 +43,7 @@ const AdminClaimTable = () => {
         accessorKey: 'id',
         header: 'id',
       },
-      {
-        accessorKey: 'createdBy',
-        header: 'User Phone Number',
-        Cell: ({ row }) => (
-          <Box component="div" sx={{ whiteSpace: 'normal' }}>
-            {_get(row, 'original.createdBy.phoneNumber', '-')}
-          </Box>
-        ),
-      },
+
       {
         accessorKey: 'nftId',
         header: 'Nft',

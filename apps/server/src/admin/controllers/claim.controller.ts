@@ -2,17 +2,23 @@ import { Body, Controller, Get, Param, Put, Query } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { Types } from 'mongoose';
 
-import { AdminClaimService } from '../services';
+import { AdminCampaignService, AdminClaimService, AdminNftCollectionService } from '../services';
 import { GetClaimsDto, UpdateClaimStatusDto } from '../dtos';
 
-import { Auth, ListDto, ParseObjectId, RoleEnum } from '@/common';
+import { Auth, ListDto, ParseObjectId, ReqUser, RoleEnum } from '@/common';
 import { Claim } from '@/modules/claim';
 import { IdDto } from '@/common/dtos/id.dto';
+import { Payload } from '@/auth';
+import { Campaign } from '@/modules/campaign';
+import { NftCollection } from '@/modules/nft-collection';
 
 @Controller('admin/claims')
 @ApiTags('admin/claims')
 export class AdminClaimController {
-  constructor(private readonly adminClaimService: AdminClaimService) {}
+  constructor(
+    private readonly adminClaimService: AdminClaimService,
+    private readonly adminNftCollectionService: AdminNftCollectionService,
+  ) {}
 
   @ApiOkResponse({
     description: 'Get list nfts with pagination',
@@ -21,9 +27,15 @@ export class AdminClaimController {
   @Get('/')
   @Auth(RoleEnum.ADMIN)
   public async getClaims(
-    @Query() getClaimsDto: GetClaimsDto,
+    @ReqUser() user: Payload,
+      @Query() getClaimsDto: GetClaimsDto,
   ): Promise<ListDto<Claim>> {
-    return this.adminClaimService.getClaims(getClaimsDto);
+    const nftCollections = await this.adminNftCollectionService.getNftCollectionsByUser(user.userId);
+    return this.adminClaimService.getClaims({
+      'nft.tokenAddress': {
+        $in: nftCollections.map((nftCollection: NftCollection) => nftCollection.tokenAddress),
+      },
+    }, getClaimsDto);
   }
 
   @Put(':id/status')

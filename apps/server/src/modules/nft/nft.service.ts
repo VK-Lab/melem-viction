@@ -1,7 +1,7 @@
 import { BadRequestException, ForbiddenException, Injectable } from '@nestjs/common';
 import _ from 'lodash';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, Types, UpdateWriteOpResult } from 'mongoose';
+import { FilterQuery, Model, Types, UpdateWriteOpResult } from 'mongoose';
 import moment from 'moment';
 
 import { Nft, NftDocument } from './schemas';
@@ -171,9 +171,9 @@ export class NftService {
     );
   }
 
-  public async getPaginatedNfts({ page, limit, sortBy, orderBy }: PaginationDto): Promise<ListDto<Nft>> {
+  public async getPaginatedNfts(filterQuery: FilterQuery<Nft>, { page, limit, sortBy, orderBy }: PaginationDto): Promise<ListDto<Nft>> {
     const claims = await this.nftModel
-      .find()
+      .find(filterQuery)
       .sort({
         [sortBy]: orderBy,
       })
