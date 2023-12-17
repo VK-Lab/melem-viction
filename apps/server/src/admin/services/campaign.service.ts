@@ -17,8 +17,14 @@ export class AdminCampaignService {
   ) {
   }
 
-  public async getCampaigns(getCampaignsDto: GetCampaignsDto): Promise<ListDto<Campaign>> {
-    return this.campaignService.getCampaigns(getCampaignsDto);
+  public async findCampaignsByUser(userId: Types.ObjectId): Promise<Campaign[]> {
+    return this.campaignService.findCampaignsByUser(userId);
+  }
+
+  public async getCampaigns(userId: Types.ObjectId, getCampaignsDto: GetCampaignsDto): Promise<ListDto<Campaign>> {
+    return this.campaignService.getCampaigns(
+      { createdBy: userId }
+      , getCampaignsDto);
   }
 
   public async updateCampaign(id: Types.ObjectId, updateCampaignDto: UpdateCampaignDto): Promise<IdDto> {

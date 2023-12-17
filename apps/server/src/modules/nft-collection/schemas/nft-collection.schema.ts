@@ -40,6 +40,9 @@ export class NftCollection {
   })
   public chainId!: string;
 
+  @Prop()
+  public createdBy?: Types.ObjectId;
+
   @Prop({
     type: [Types.ObjectId],
     default: [],

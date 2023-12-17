@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { Types } from 'mongoose';
+import { FilterQuery, Types } from 'mongoose';
 
 import { BatchCreateNftsDto, GetNftsDto, UpdateNftDto } from '../dtos';
 import { CreateNftDto } from '../dtos/create-nft.dto';
@@ -14,8 +14,8 @@ export class AdminNftService {
     private readonly nftService: NftService) {
   }
 
-  public async getNfts(getNftsDto: GetNftsDto): Promise<ListDto<Nft>> {
-    return this.nftService.getPaginatedNfts(getNftsDto);
+  public async getNfts(filterQuery: FilterQuery<Nft>, getNftsDto: GetNftsDto): Promise<ListDto<Nft>> {
+    return this.nftService.getPaginatedNfts(filterQuery, getNftsDto);
   }
 
   public async updateNft(id: Types.ObjectId, updateNftDto: UpdateNftDto): Promise<IdDto> {

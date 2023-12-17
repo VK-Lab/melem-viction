@@ -19,8 +19,10 @@ export class AdminBenefitController {
   })
   @Get('/')
   @Auth(RoleEnum.ADMIN)
-  public async getBenefits(@Query() getBenefitsDto: GetBenefitsDto): Promise<ListDto<Benefit>> {
-    return this.adminBenefitService.getBenefits(getBenefitsDto);
+  public async getBenefits(
+    @ReqUser() user: Payload,
+      @Query() getBenefitsDto: GetBenefitsDto): Promise<ListDto<Benefit>> {
+    return this.adminBenefitService.getBenefits(user.userId, getBenefitsDto);
   }
 
   @ApiOkResponse({

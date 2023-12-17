@@ -39,4 +39,6 @@ export class CreateNftDto {
     return value.map((val: string) => new Types.ObjectId(val));
   })
   public benefits?: Types.ObjectId[];
+
+  public createdBy?: Types.ObjectId;
 }

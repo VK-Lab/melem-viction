@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, Types, UpdateWriteOpResult } from 'mongoose';
+import { FilterQuery, Model, Types, UpdateWriteOpResult } from 'mongoose';
 
 import { Campaign, CampaignDocument } from './schemas';
 
@@ -18,9 +18,15 @@ export class CampaignService {
     return this.campaignModel.create(campaign);
   }
 
-  public async getCampaigns({ page, limit, sortBy, orderBy }: PaginationDto): Promise<ListDto<Campaign>> {
+  public async findCampaignsByUser(userId: Types.ObjectId): Promise<Campaign[]> {
+    return this.campaignModel.find({ createdBy: userId });
+  }
+
+  public async getCampaigns(
+    filterQuery: FilterQuery<Campaign>,
+    { page, limit, sortBy, orderBy }: PaginationDto): Promise<ListDto<Campaign>> {
     const campaigns = await this.campaignModel
-      .find()
+      .find(filterQuery)
       .sort({
         [sortBy]: orderBy,
       })

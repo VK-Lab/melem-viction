@@ -18,6 +18,12 @@ export class NftCollectionService {
     return nftCollection;
   }
 
+  public async getByUserId(userId: Types.ObjectId): Promise<NftCollection[]> {
+    const nftCollections = await this.nftCollectionModel.find({ createdBy: userId });
+
+    return nftCollections;
+  }
+
 
   public async getNftCollections({ page, limit }: PaginationDto): Promise<ListDto<NftCollection>> {
     const nftCollections = await this.nftCollectionModel

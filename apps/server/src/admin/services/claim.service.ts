@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { Types } from 'mongoose';
+import { FilterQuery, Types } from 'mongoose';
 
 import { UpdateClaimStatusDto, GetClaimsDto } from '../dtos';
 
@@ -10,12 +10,13 @@ import { ListDto } from '@/common';
 @Injectable()
 export class AdminClaimService {
   constructor(
-    private readonly claimService: ClaimService) {
+    private readonly claimService: ClaimService,
+  ) {
 
   }
 
-  public async getClaims(getClaimsDto: GetClaimsDto): Promise<ListDto<Claim>> {
-    return this.claimService.getClaims(getClaimsDto);
+  public async getClaims(filterQuery: FilterQuery<Claim>, getClaimsDto: GetClaimsDto): Promise<ListDto<Claim>> {
+    return this.claimService.getClaims(filterQuery, getClaimsDto);
   }
 
   public async updateClaimStatus(id: Types.ObjectId, updateClaimStatusDto: UpdateClaimStatusDto): Promise<IdDto> {

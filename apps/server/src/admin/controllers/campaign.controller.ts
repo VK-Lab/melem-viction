@@ -14,7 +14,8 @@ import { IdDto } from '@/common/dtos/id.dto';
 @Controller('admin/campaigns')
 @ApiTags('admin/campaigns')
 export class AdminCampaignController {
-  constructor(private readonly adminCampaignService: AdminCampaignService) {}
+  constructor(
+    private readonly adminCampaignService: AdminCampaignService) {}
 
   @ApiOkResponse({
     description: 'Get list campaigns with pagination',
@@ -22,8 +23,10 @@ export class AdminCampaignController {
   })
   @Get('/')
   @Auth(RoleEnum.ADMIN)
-  public async getCampaigns(@Query() getCampaignsDto: GetCampaignsDto): Promise<ListDto<Campaign>> {
-    return this.adminCampaignService.getCampaigns(getCampaignsDto);
+  public async getCampaigns(
+    @ReqUser() user: Payload,
+      @Query() getCampaignsDto: GetCampaignsDto): Promise<ListDto<Campaign>> {
+    return this.adminCampaignService.getCampaigns(user.userId, getCampaignsDto);
   }
 
   @ApiOkResponse({
