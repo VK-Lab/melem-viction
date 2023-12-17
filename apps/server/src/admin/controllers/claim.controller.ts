@@ -2,14 +2,13 @@ import { Body, Controller, Get, Param, Put, Query } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { Types } from 'mongoose';
 
-import { AdminCampaignService, AdminClaimService, AdminNftCollectionService } from '../services';
+import { AdminClaimService, AdminNftCollectionService } from '../services';
 import { GetClaimsDto, UpdateClaimStatusDto } from '../dtos';
 
 import { Auth, ListDto, ParseObjectId, ReqUser, RoleEnum } from '@/common';
 import { Claim } from '@/modules/claim';
 import { IdDto } from '@/common/dtos/id.dto';
 import { Payload } from '@/auth';
-import { Campaign } from '@/modules/campaign';
 import { NftCollection } from '@/modules/nft-collection';
 
 @Controller('admin/claims')

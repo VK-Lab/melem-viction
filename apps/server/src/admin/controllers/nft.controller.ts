@@ -3,7 +3,7 @@ import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { Types } from 'mongoose';
 
 import { BatchCreateNftsDto, CreateNftDto, GetNftsDto, UpdateNftDto } from '@/admin/dtos';
-import { AdminNftCollectionService, AdminNftService } from '@/admin/services';
+import { AdminNftService } from '@/admin/services';
 import { Auth, ListDto, ParseObjectId, ReqUser, RoleEnum } from '@/common';
 import { IdDto } from '@/common/dtos/id.dto';
 import { Nft } from '@/modules/nft';
@@ -14,7 +14,6 @@ import { Payload } from '@/auth';
 export class AdminNftController {
   constructor(
     private readonly adminNftService: AdminNftService,
-    private readonly adminNftCollectionService: AdminNftCollectionService,
   ) {}
 
   @ApiOkResponse({
