@@ -5,4 +5,5 @@ export type Benefit = {
   name: string;
   description: string;
   claimStatus: ClaimStatusEnum;
+  generatedCode?: string;
 };

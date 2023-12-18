@@ -61,6 +61,10 @@ export declare global {
       TELEGRAM_D2E_CHANNEL_ID: string;
 
       NFTSCAN_API_KEY: string;
+
+      WOOCOMMERCE_BASE_URL: string;
+      WOOCOMMERCE_CLIENT_KEY: string;
+      WOOCOMMERCE_CLIENT_SECRET: string;
     }
   }
 

@@ -1,15 +1,26 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { FilterQuery, Model, Types, UpdateWriteOpResult } from 'mongoose';
+import { customAlphabet } from 'nanoid';
+
+import { WooCommerceService } from '../@core/woocommerce';
+import { BeneiftSourceEnum } from '../benefit/enums/benefit-source.enum';
 
 import { Claim, ClaimDocument } from './schemas';
 import { CreateClaimDto } from './dtos';
 
-import { ListDto, PaginationDto } from '@/common';
+import { ClaimStatusEnum, ListDto, PaginationDto } from '@/common';
 
 @Injectable()
 export class ClaimService {
-  constructor(@InjectModel(Claim.name) private claimModel: Model<ClaimDocument>) {}
+  constructor(
+    @InjectModel(Claim.name) private claimModel: Model<ClaimDocument>,
+    private readonly wooCommerceService: WooCommerceService,
+  ) {}
+
+  public async findById(id: Types.ObjectId): Promise<Claim | null> {
+    return this.claimModel.findById(id).populate('benefit', '_id name source amount');
+  }
 
   public async createClaim(userId: Types.ObjectId, createClaimDto: CreateClaimDto): Promise<Claim> {
     try {
@@ -85,10 +96,30 @@ export class ClaimService {
   }
 
   public async updateClaimStatus(id: Types.ObjectId, { status }: Partial<Claim>): Promise<UpdateWriteOpResult> {
-    return this.claimModel.updateOne({
+    let generatedCode = undefined;
+    const claim = await this.findById(id);
+    const { source, amount = 0 } = claim?.benefit || { amount: 0 };
+
+    if (source === BeneiftSourceEnum.WOOCOMMERCE && status === ClaimStatusEnum.ACCEPTED) {
+      const nanoid = customAlphabet('0123456789abcdefghijklmnopqrstuvwxyz', 6);
+      const data = await this.wooCommerceService.createCoupon({
+        code: nanoid().toUpperCase(),
+        discount_type: 'percent',
+        amount: `${amount}`,
+        individual_use: true,
+        exclude_sale_items: true,
+      });
+
+      generatedCode = data.code;
+    }
+
+    const result = await this.claimModel.updateOne({
       _id: id,
     }, {
       status,
+      generatedCode,
     });
+
+    return result;
   }
 }

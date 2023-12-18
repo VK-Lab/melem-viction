@@ -1,7 +1,8 @@
 {
   "hello": "Xin chào :)",
   "success": {
-    "signup_success": "Bạn đã tạo tài khoản thành công."
+    "signup_success": "Bạn đã tạo tài khoản thành công.",
+    "coupon_copied": "Đã sao chép mã giảm giá"
   },
   "error" : {
     "default": "Oops, đã xảy ra lỗi không xác định :)",

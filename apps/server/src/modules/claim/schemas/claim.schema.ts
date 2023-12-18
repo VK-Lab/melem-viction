@@ -19,6 +19,9 @@ export class Claim {
   @Prop()
   public campaignId?: Types.ObjectId;
 
+  @Prop()
+  public generatedCode?: string;
+
   @Prop({
     ref: 'User',
   })

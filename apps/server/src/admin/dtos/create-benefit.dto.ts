@@ -1,5 +1,7 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { IsEnum, IsNotEmpty, IsOptional, IsPositive, IsString } from 'class-validator';
+
+import { BeneiftSourceEnum } from '@/modules/benefit/enums/benefit-source.enum';
 
 export class CreateBenefitDto {
   @IsString()
@@ -11,4 +13,14 @@ export class CreateBenefitDto {
   @IsOptional()
   @ApiProperty()
   public description?: string;
+
+  @IsEnum(BeneiftSourceEnum)
+  @IsOptional()
+  @ApiPropertyOptional()
+  public source?: BeneiftSourceEnum;
+
+  @IsPositive()
+  @ApiPropertyOptional()
+  @IsOptional()
+  public amount!: number;
 }

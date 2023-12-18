@@ -75,10 +75,15 @@ export class NftController {
       throw new ForbiddenException('Owned by another user');
     }
 
-    return <NftBenefit[]><unknown>_.map(this.nftService.getAllBenefitsWithCollection(foundNft), (benefit: BenefitDocument): NftBenefit => ({
-      ...benefit.toJSON(),
-      claimStatus: _.get(_.find(foundNft.claims, { benefitId: benefit._id }), 'status', ClaimStatusEnum.READY),
-    }));
+    return <NftBenefit[]><unknown>_.map(this.nftService.getAllBenefitsWithCollection(foundNft), (benefit: BenefitDocument): NftBenefit => {
+      const foundClaim = _.find(foundNft.claims, { benefitId: benefit._id });
+
+      return {
+        ...benefit.toJSON(),
+        claimStatus: _.get(foundClaim, 'status', ClaimStatusEnum.READY),
+        generatedCode: _.get(foundClaim, 'generatedCode', undefined),
+      };
+    });
   }
 
 
