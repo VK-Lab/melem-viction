@@ -50,7 +50,7 @@ export class NftService {
           select: 'id name',
         },
       })
-      .populate('claims', '_id benefitId status');
+      .populate('claims', '_id benefitId status generatedCode');
 
     return foundNft;
   }

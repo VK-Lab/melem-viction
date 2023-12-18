@@ -1,6 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
 
+import { BeneiftSourceEnum } from '../enums/benefit-source.enum';
+
 @Schema({ timestamps: true, versionKey: false, collection: 'benefits' })
 export class Benefit {
   @Prop({
@@ -10,6 +12,17 @@ export class Benefit {
 
   @Prop()
   public description!: string;
+
+  @Prop()
+  public amount!: number;
+
+  @Prop({
+    required: true,
+    type: String,
+    enum: BeneiftSourceEnum,
+    default: BeneiftSourceEnum.MANUAL,
+  })
+  public source!: BeneiftSourceEnum;
 
   @Prop({
     required: true,

@@ -4,7 +4,12 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
-import { FormContainer } from 'react-hook-form-mui';
+import {
+  FormContainer,
+  SelectElement,
+  useFormContext,
+  useWatch,
+} from 'react-hook-form-mui';
 import { useQueryClient } from 'react-query';
 
 import { StyledTextFieldElement } from './styled';
@@ -12,6 +17,32 @@ import ToastMessage from '@/components/Toast';
 import { QueryKeys } from '@/enums/queryKeys.enum';
 import { useMutateCreateBenefit } from '@/hooks/mutations';
 import { Benefit } from '@/types/benefit';
+
+export enum BeneiftSourceEnum {
+  WOOCOMMERCE = 'woocommerce',
+  MANUAL = 'manual',
+}
+
+const DiscountsField = () => {
+  const { control } = useFormContext();
+  const source = useWatch({
+    control,
+    name: 'source',
+  });
+
+  if (source !== BeneiftSourceEnum.WOOCOMMERCE) {
+    return null;
+  }
+
+  return (
+    <StyledTextFieldElement
+      type="number"
+      name="amount"
+      label="Discounts (%)"
+      required
+    />
+  );
+};
 
 const style = {
   position: 'absolute',
@@ -33,6 +64,27 @@ const BenefitForm = ({ onSuccess }: BenefitFormProps) => {
     <FormContainer defaultValues={{ name: '' }} onSuccess={onSuccess}>
       <StyledTextFieldElement name="name" label="Name" required />
       <StyledTextFieldElement name="description" label="Description" />
+      <Box mt="1rem">
+        <SelectElement
+          label="Source"
+          name="source"
+          sx={{
+            width: '100%',
+          }}
+          options={[
+            {
+              id: BeneiftSourceEnum.MANUAL,
+              label: 'Manual',
+            },
+            {
+              id: BeneiftSourceEnum.WOOCOMMERCE,
+              label: 'WooCommerce',
+            },
+          ]}
+          required
+        />
+        <DiscountsField />
+      </Box>
       <Box mt="1rem">
         <Button type={'submit'} color={'primary'} variant={'contained'}>
           Create

@@ -1,0 +1,30 @@
+export interface ICreateCouponResponse {
+  id: number;
+  code: string;
+  amount: string;
+  status: string;
+  date_created: string;
+  date_created_gmt: string;
+  date_modified: string;
+  date_modified_gmt: string;
+  discount_type: string;
+  description: string;
+  date_expires: any;
+  date_expires_gmt: any;
+  usage_count: number;
+  individual_use: boolean;
+  product_ids: any[];
+  excluded_product_ids: any[];
+  usage_limit: any;
+  usage_limit_per_user: any;
+  limit_usage_to_x_items: any;
+  free_shipping: boolean;
+  product_categories: any[];
+  excluded_product_categories: any[];
+  exclude_sale_items: boolean;
+  minimum_amount: string;
+  maximum_amount: string;
+  email_restrictions: any[];
+  used_by: any[];
+  meta_data: any[];
+}

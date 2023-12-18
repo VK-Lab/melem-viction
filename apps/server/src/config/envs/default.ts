@@ -34,4 +34,10 @@ export const config = {
   nftScan: {
     apiKey: process.env.NFTSCAN_API_KEY,
   },
+
+  woocommerce: {
+    baseUrl: process.env.WOOCOMMERCE_BASE_URL,
+    clientKey: process.env.WOOCOMMERCE_CLIENT_KEY,
+    clientSecret: process.env.WOOCOMMERCE_CLIENT_SECRET,
+  },
 };

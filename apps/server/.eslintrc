@@ -174,7 +174,6 @@
       {
         "selector": "typeLike",
         "format": [
-          "StrictPascalCase"
         ]
       },
       {
