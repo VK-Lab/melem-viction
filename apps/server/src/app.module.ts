@@ -6,6 +6,7 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
 
 import { BenefitModule } from './modules/benefit/benefit.module';
 import { ClaimModule } from './modules/claim/claim.module';
+import { NftScanModule } from './modules/nft-scan/nft-scan.module';
 
 import { NftCollectionModule } from '@/modules/nft-collection';
 import { BaseModule } from '@/base';
@@ -15,7 +16,6 @@ import { WalletModule } from '@/modules/wallet';
 import { NftModule } from '@/modules/nft';
 import { UserModule } from '@/modules/user';
 import { CampaignModule } from '@/modules/campaign';
-import { NftScanModule } from './modules/nft-scan/nft-scan.module';
 
 @Module({
   imports: [
