@@ -1,14 +1,15 @@
 import { useState } from 'react';
 
-import { LoadingButton } from '@mui/lab';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
+import { castArray } from 'lodash';
 import { FormContainer } from 'react-hook-form-mui';
 import { useQueryClient } from 'react-query';
 
 import { StyledTextFieldElement } from './styled';
+import { StyledButton } from './styled';
 import ToastMessage from '@/components/Toast';
 import { QueryKeys } from '@/enums/queryKeys.enum';
 import { useMutateUpdateCampaign } from '@/hooks/mutations';
@@ -48,9 +49,11 @@ const ButtonUpdateModal = ({ campaign }: ButtonUpdateModalProps) => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const handleOnSubmitForm = (updateCampaignParams: UpdateCampaignParams) => {
+    const { nftCollectionId, ...restParams } = updateCampaignParams;
     updateCampaignMutation.mutate({
-      ...updateCampaignParams,
+      ...restParams,
       id: campaign.id,
+      nftCollectionIds: castArray(nftCollectionId),
     });
   };
 
@@ -74,7 +77,7 @@ const ButtonUpdateModal = ({ campaign }: ButtonUpdateModalProps) => {
               defaultValues={{
                 name: campaign.name,
                 description: campaign.description,
-                nftCollectionIds: campaign.nftCollectionIds,
+                nftCollectionId: campaign?.nftCollectionIds[0],
               }}
               onSuccess={handleOnSubmitForm}
             >
@@ -82,19 +85,19 @@ const ButtonUpdateModal = ({ campaign }: ButtonUpdateModalProps) => {
               <StyledTextFieldElement name="description" label="Description" />
               <Box mt="1rem">
                 <SelectNftCollectionsField
-                  name="nftCollectionIds"
+                  name="nftCollectionId"
                   campaignId={campaign.id}
                 />
               </Box>
               <Box mt="1rem">
-                <LoadingButton
+                <StyledButton
                   loading={updateCampaignMutation.isLoading}
                   type={'submit'}
                   color={'primary'}
                   variant={'contained'}
                 >
                   Update
-                </LoadingButton>
+                </StyledButton>
               </Box>
             </FormContainer>
           </Box>

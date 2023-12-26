@@ -90,7 +90,7 @@ export class AuthService {
   public async verifyAdminSignature(nonce: string, verifySignatureDto: VerifySignatureDto): Promise<User> {
     const fields = await this.verifySignature(nonce, verifySignatureDto);
 
-    const foundUser = await this.userService.findUserWithRole(fields.address.toLowerCase(), RoleEnum.ADMIN);
+    const foundUser = await this.userService.findByWalletAddress(fields.address.toLowerCase());
     if (!foundUser) {
       throw new BadRequestException('user_not_found');
     }

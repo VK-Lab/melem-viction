@@ -1,5 +1,6 @@
 import { AutocompleteElement } from 'react-hook-form-mui';
 
+import { ContractNameEnum } from '@/enums/contractName.enum';
 import { useGetAllNftCollections } from '@/hooks/queries';
 import { NftCollection } from '@/types/nft-collection';
 
@@ -18,12 +19,15 @@ const SelectNftCollectionsField = ({ name, campaignId }: Props) => {
     <AutocompleteElement
       loading={isLoading}
       matchId
-      label="NFT Collection"
+      label="Public NFT Collection"
       name={name}
       options={nftCollections
         .filter(
           (nftCollection: NftCollection) =>
             !nftCollection.campaignId || nftCollection.campaignId === campaignId
+        )
+        .filter(
+          (collection) => collection.contractName !== ContractNameEnum.INSTALLER
         )
         .map((item: NftCollection) => {
           return {

@@ -6,6 +6,7 @@ import { useQueryClient } from 'react-query';
 import { StyledLoadingButton, StyledTextFieldElement } from './styled';
 import ToastMessage from '@/components/Toast';
 import { Config } from '@/config';
+import { ContractNameEnum } from '@/enums/contractName.enum';
 import { ContractType } from '@/enums/contractType.enum';
 import { QueryKeys } from '@/enums/queryKeys.enum';
 import {
@@ -50,6 +51,7 @@ const NftForm = ({ onSuccess }: NftFormProps) => {
         name: '',
         contractType: ContractType.VRC725,
         chainId: `${Config.chainId}`,
+        contractName: ContractNameEnum.PUBLIC,
       }}
       onSuccess={handleOnSubmitForm}
     >
@@ -72,9 +74,25 @@ const NftForm = ({ onSuccess }: NftFormProps) => {
               id: ContractType.VRC725,
               label: 'VRC725',
             },
+          ]}
+          required
+        />
+      </Box>
+      <Box mt="1rem">
+        <SelectElement
+          label="Minting Policy"
+          name="contractName"
+          sx={{
+            width: '100%',
+          }}
+          options={[
             {
-              id: ContractType.ERC1155,
-              label: 'ERC1155',
+              id: ContractNameEnum.INSTALLER,
+              label: 'Installer',
+            },
+            {
+              id: ContractNameEnum.PUBLIC,
+              label: 'Public',
             },
           ]}
           required

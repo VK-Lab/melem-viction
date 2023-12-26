@@ -1,14 +1,10 @@
 import { useMemo } from 'react';
 
-import { Box, Button } from '@mui/material';
-import copy from 'copy-to-clipboard';
+import { Box } from '@mui/material';
 import dayjs from 'dayjs';
 import MaterialReactTable, { MRT_ColumnDef } from 'material-react-table';
-import urlJoin from 'url-join';
 
 import ButtonUpdateModal from './ButtonUpdateModal';
-import ToastMessage from '@/components/Toast';
-import { Config } from '@/config';
 import { useGetAdminNfts } from '@/hooks/queries';
 import { Nft } from '@/types/nft';
 
@@ -16,22 +12,22 @@ const AdminNftTable = () => {
   const { data: { items = [] } = { nfts: [], total: 0 }, isLoading } =
     useGetAdminNfts();
 
-  const handleCopy = (nft: Nft) => {
-    const url = urlJoin(
-      Config.apiBaseUrl,
-      'nfts',
-      nft.tokenAddress,
-      nft.tokenId,
-      'metadata'
-    );
+  // const handleCopy = (nft: Nft) => {
+  //   const url = urlJoin(
+  //     Config.apiBaseUrl,
+  //     'nfts',
+  //     nft.tokenAddress,
+  //     nft.tokenId,
+  //     'metadata'
+  //   );
 
-    copy(url);
+  //   copy(url);
 
-    ToastMessage({
-      type: 'success',
-      message: 'Copied',
-    });
-  };
+  //   ToastMessage({
+  //     type: 'success',
+  //     message: 'Copied',
+  //   });
+  // };
 
   const columns = useMemo<MRT_ColumnDef<Nft>[]>(
     () => [
@@ -79,6 +75,13 @@ const AdminNftTable = () => {
         data={items}
         positionActionsColumn={'last'}
         muiTableContainerProps={{ sx: { maxHeight: '500px' } }}
+        initialState={{
+          columnVisibility: {
+            id: false,
+            tokenAddress: false,
+            tokenId: false,
+          },
+        }}
         state={{
           isLoading: isLoading,
           columnPinning: {
@@ -91,14 +94,14 @@ const AdminNftTable = () => {
           return (
             <Box display="flex" gap="10px">
               <ButtonUpdateModal nft={row.original} />
-              <Box minWidth="80px">
+              {/* <Box minWidth="80px">
                 <Button
                   variant="outlined"
                   onClick={() => handleCopy(row.original)}
                 >
                   Metadata
                 </Button>
-              </Box>
+              </Box> */}
             </Box>
           );
         }}

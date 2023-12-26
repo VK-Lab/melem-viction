@@ -4,7 +4,7 @@ import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { AdminBenefitService } from '../services';
 import { CreateBenefitDto, GetBenefitsDto } from '../dtos';
 
-import { Auth, ListDto, ReqUser, RoleEnum } from '@/common';
+import { Auth, ListDto, ReqUser } from '@/common';
 import { Benefit } from '@/modules/benefit';
 import { Payload } from '@/auth';
 
@@ -18,7 +18,7 @@ export class AdminBenefitController {
     type: ListDto<Benefit>,
   })
   @Get('/')
-  @Auth(RoleEnum.ADMIN)
+  @Auth()
   public async getBenefits(
     @ReqUser() user: Payload,
       @Query() getBenefitsDto: GetBenefitsDto): Promise<ListDto<Benefit>> {
@@ -30,7 +30,7 @@ export class AdminBenefitController {
     type: Benefit,
   })
   @Post('/')
-  @Auth(RoleEnum.ADMIN)
+  @Auth()
   public async createBenefit(@ReqUser() user: Payload, @Body() createBenefitDto: CreateBenefitDto): Promise<Benefit> {
     return this.adminBenefitService.createBenefit(user.userId, createBenefitDto);
   }

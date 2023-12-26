@@ -1,4 +1,5 @@
-import { LoadingButton } from '@mui/lab';
+import { useEffect } from 'react';
+
 import Box from '@mui/material/Box';
 import {
   AutocompleteElement,
@@ -10,7 +11,7 @@ import {
 import { useQueryClient } from 'react-query';
 import { useAccount } from 'wagmi';
 
-import { StyledTextFieldElement } from './styled';
+import { StyledButton, StyledTextFieldElement } from './styled';
 import ToastMessage from '@/components/Toast';
 import { QueryKeys } from '@/enums/queryKeys.enum';
 import { useMutateCreateNft } from '@/hooks/mutations';
@@ -61,6 +62,17 @@ const NftForm = ({ onSuccess }: NftFormProps) => {
     }
   );
 
+  useEffect(() => {
+    const foundNftCollection = nftCollections.find(
+      (nftCollection: NftCollection) =>
+        nftCollection.tokenAddress === watchedTokenAddress
+    );
+
+    if (foundNftCollection && foundNftCollection.defaultImageUrl) {
+      formContext.setValue('imageUrl', foundNftCollection.defaultImageUrl);
+    }
+  }, [watchedTokenAddress]);
+
   const handleOnSubmitForm = async (createNftParams: CreateNftParams) => {
     createNftMutation.mutate(createNftParams);
   };
@@ -108,7 +120,7 @@ const NftForm = ({ onSuccess }: NftFormProps) => {
       <StyledTextFieldElement name="walletAddress" label="To Wallet Address" />
 
       <Box mt="1rem">
-        <LoadingButton
+        <StyledButton
           type={'submit'}
           color={'primary'}
           variant={'contained'}
@@ -119,7 +131,7 @@ const NftForm = ({ onSuccess }: NftFormProps) => {
           }
         >
           Create
-        </LoadingButton>
+        </StyledButton>
       </Box>
     </FormContainer>
   );

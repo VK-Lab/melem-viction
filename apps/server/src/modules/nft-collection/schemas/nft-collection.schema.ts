@@ -1,6 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
 
+import { ContractNameEnum } from '../enums/contract-name.enum';
+
 @Schema({ timestamps: true, versionKey: false, collection: 'nft_collections' })
 export class NftCollection {
   @Prop({
@@ -34,6 +36,13 @@ export class NftCollection {
     required: true,
   })
   public contractType!: string;
+
+  @Prop({
+    type: String,
+    default: ContractNameEnum.PUBLIC,
+    enum: ContractNameEnum,
+  })
+  public contractName!: ContractNameEnum;
 
   @Prop({})
   public campaignId?: Types.ObjectId;

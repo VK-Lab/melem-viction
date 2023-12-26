@@ -1,3 +1,5 @@
+import { ContractNameEnum } from '@/enums/contractName.enum';
+
 export type NftCollection = {
   id: string;
   name: string;
@@ -11,4 +13,5 @@ export type NftCollection = {
   createdAt: string;
   uid: string;
   defaultImageUrl?: string;
+  contractName: ContractNameEnum;
 };

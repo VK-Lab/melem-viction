@@ -1,10 +1,9 @@
-import { LoadingButton } from '@mui/lab';
 import Box from '@mui/material/Box';
-import isArray from 'lodash/isArray';
+import { castArray } from 'lodash';
 import { FormContainer, SelectElement } from 'react-hook-form-mui';
 import { useQueryClient } from 'react-query';
 
-import { StyledTextFieldElement } from './styled';
+import { StyledButton, StyledTextFieldElement } from './styled';
 import ToastMessage from '@/components/Toast';
 import { QueryKeys } from '@/enums/queryKeys.enum';
 import { useMutateCreateCampaign } from '@/hooks/mutations';
@@ -32,13 +31,11 @@ const NftForm = ({ onSuccess }: Props) => {
   });
 
   const handleOnSubmitForm = (createCampaignParams: CreateCampaignParams) => {
-    const nftCollectionIds = isArray(createCampaignParams.nftCollectionIds)
-      ? createCampaignParams.nftCollectionIds
-      : [createCampaignParams.nftCollectionIds];
+    const { nftCollectionId, ...rest } = createCampaignParams;
 
     createCampaignMutation.mutate({
-      ...createCampaignParams,
-      nftCollectionIds,
+      ...rest,
+      nftCollectionIds: castArray(nftCollectionId),
     });
   };
 
@@ -48,6 +45,7 @@ const NftForm = ({ onSuccess }: Props) => {
         name: '',
         description: '',
         type: 'free_mint',
+        nftCollectionIds: [],
       }}
       onSuccess={handleOnSubmitForm}
     >
@@ -67,17 +65,17 @@ const NftForm = ({ onSuccess }: Props) => {
         />
       </Box>
       <Box mt="1rem">
-        <SelectNftCollectionsField name="nftCollectionIds" />
+        <SelectNftCollectionsField name="nftCollectionId" />
       </Box>
       <Box mt="1rem">
-        <LoadingButton
+        <StyledButton
           loading={createCampaignMutation.isLoading}
           type={'submit'}
           color={'primary'}
           variant={'contained'}
         >
           Create
-        </LoadingButton>
+        </StyledButton>
       </Box>
     </FormContainer>
   );

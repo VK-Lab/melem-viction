@@ -4,7 +4,7 @@ import { Types } from 'mongoose';
 
 import { BatchCreateNftsDto, CreateNftDto, GetNftsDto, UpdateNftDto } from '@/admin/dtos';
 import { AdminNftService } from '@/admin/services';
-import { Auth, ListDto, ParseObjectId, ReqUser, RoleEnum } from '@/common';
+import { Auth, ListDto, ParseObjectId, ReqUser } from '@/common';
 import { IdDto } from '@/common/dtos/id.dto';
 import { Nft } from '@/modules/nft';
 import { Payload } from '@/auth';
@@ -21,7 +21,7 @@ export class AdminNftController {
     type: ListDto<Nft>,
   })
   @Get('/')
-  @Auth(RoleEnum.ADMIN)
+  @Auth()
   public async getNfts(
     @ReqUser() user: Payload,
       @Query() getNftsDto: GetNftsDto): Promise<ListDto<Nft>> {
@@ -31,13 +31,13 @@ export class AdminNftController {
   }
 
   @Put(':id')
-  @Auth(RoleEnum.ADMIN)
+  @Auth()
   public async updateNft(@Param('id', ParseObjectId) id: Types.ObjectId, @Body() updateNftDto: UpdateNftDto): Promise<IdDto> {
     return this.adminNftService.updateNft(id, updateNftDto);
   }
 
   @Post('/')
-  @Auth(RoleEnum.ADMIN)
+  @Auth()
   public async createNft(
     @ReqUser() user: Payload,
       @Body() createNftDto: CreateNftDto): Promise<IdDto> {
@@ -48,7 +48,7 @@ export class AdminNftController {
   }
 
   @Post('/batchCreate')
-  @Auth(RoleEnum.ADMIN)
+  @Auth()
   public async batchCreate(@Body() batchCreateNftsDto: BatchCreateNftsDto): Promise<IdDto[]> {
     return this.adminNftService.batchCreateNftsDto(batchCreateNftsDto);
   }

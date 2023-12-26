@@ -1,7 +1,9 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
-import { isArray, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { isArray, IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { Types } from 'mongoose';
+
+import { ContractNameEnum } from '@/modules/nft-collection/enums/contract-name.enum';
 
 export class CreateNftCollectionDto {
   @ApiProperty()
@@ -38,6 +40,11 @@ export class CreateNftCollectionDto {
   @IsString()
   @IsNotEmpty()
   public uid!: string;
+
+  @ApiProperty()
+  @IsEnum(ContractNameEnum)
+  @IsNotEmpty()
+  public contractName!: ContractNameEnum;
 
   @ApiPropertyOptional()
   @IsOptional()
