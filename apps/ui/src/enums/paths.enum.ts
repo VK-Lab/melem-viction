@@ -19,6 +19,8 @@ export enum PublicPaths {
   WELCOME = '/welcome',
   ADMIN = '/admin',
   HOME = '/',
+  CAMPAIGNS = '/campaigns',
+  CAMPAIGN_DETAIL = '/campaigns/[id]',
 }
 
 export const Paths = {

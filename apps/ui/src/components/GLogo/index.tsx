@@ -1,4 +1,5 @@
 import Image from 'next/future/image';
+import Link from 'next/link';
 
 import Logo from '~/public/img/logo.png';
 
@@ -7,10 +8,12 @@ const GLogo = (props: any) => {
   return (
     <div
       {...props}
-      className="d2e--logo"
+      className="melem--logo"
       style={{ height: 64, textAlign: 'center', padding: '10px 0' }}
     >
-      <Image alt="logo" src={Logo} style={{ height: 'auto', width: 54 }} />
+      <Link href={`/`}>
+        <Image alt="logo" src={Logo} style={{ height: 'auto', width: 54 }} />
+      </Link>
     </div>
   );
 };

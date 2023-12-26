@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { Box, Chip } from '@mui/material';
+import { Box, Button, Chip, Link } from '@mui/material';
 import dayjs from 'dayjs';
 import _get from 'lodash/get';
 import MaterialReactTable, { MRT_ColumnDef } from 'material-react-table';
@@ -77,6 +77,11 @@ const AdminCampaignTable = () => {
         columns={columns}
         data={items}
         positionActionsColumn={'last'}
+        initialState={{
+          columnVisibility: {
+            id: false,
+          },
+        }}
         muiTableContainerProps={{ sx: { maxHeight: '500px' } }}
         state={{
           isLoading: isLoading,
@@ -88,7 +93,15 @@ const AdminCampaignTable = () => {
         enableRowActions={true}
         renderRowActions={({ row }) => {
           return (
-            <Box display="flex" gap="10px">
+            <Box display="flex" gap="10px" alignItems={'center'}>
+              <Link
+                underline="none"
+                variant="body2"
+                href={`/campaigns/${row.original.id}`}
+                target="_blank"
+              >
+                View Campaign
+              </Link>
               <ButtonUpdateModal campaign={row.original} />
             </Box>
           );

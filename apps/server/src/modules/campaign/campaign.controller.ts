@@ -5,7 +5,7 @@ import { Types } from 'mongoose';
 import { CampaignService } from './campaign.service';
 import { Campaign } from './schemas';
 
-import { Auth, ParseObjectId } from '@/common';
+import { ParseObjectId } from '@/common';
 
 @Controller('campaigns')
 export class CampaignController {
@@ -19,7 +19,6 @@ export class CampaignController {
     description: 'Get list campaigns with pagination',
   })
   @Get('/:id')
-  @Auth()
   public async getCampaign(
     @Param('id', ParseObjectId) id: Types.ObjectId,
   ): Promise<Campaign> {
