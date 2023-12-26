@@ -1,5 +1,4 @@
 import { Toolbar } from '@mui/material';
-import Image from 'next/future/image'; // No wrapper
 
 import AdminSidebar from './AdminSidebar';
 import AdminTopbar from './AdminTopbar';
@@ -9,7 +8,7 @@ import {
   StyledAuthLayout,
   StyledDashboardBodyContent,
 } from './styled';
-import Logo from '~/public/img/logo.png';
+import GLogo from '@/components/GLogo';
 
 const DRAWER_WIDTH = 300;
 
@@ -26,12 +25,7 @@ const DashboardLayout = ({ children, elementTopbar }: Props) => {
         variant="permanent"
         anchor="left"
       >
-        <div
-          className="d2e--logo"
-          style={{ height: 64, textAlign: 'center', padding: '10px 0' }}
-        >
-          <Image alt="logo" src={Logo} style={{ width: 64, height: 'auto' }} />
-        </div>
+        <GLogo />
         <AdminSidebar maxWidth={DRAWER_WIDTH} />
       </StyledDrawer>
       <StyledDashboardBody>

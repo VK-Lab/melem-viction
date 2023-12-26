@@ -18,7 +18,7 @@ const RouterGuard = ({ children }: { children: any }) => {
       // redirect to login page if accessing a private page and not logged in
       const publicPaths: string[] = Object.values(PublicPaths);
       const path = url.split('?')[0];
-      if (publicPaths.includes(path)) {
+      if (publicPaths.includes(path) || url.startsWith('/campaigns/')) {
         setAuthorized(true);
 
         return;

@@ -24,7 +24,7 @@ export const MintCard = ({ nftCollection }: Props) => {
       name: nftCollection.name,
       description: nftCollection.description,
       tokenAddress: nftCollection.tokenAddress,
-      imageUrl: '',
+      imageUrl: nftCollection.defaultImageUrl || '',
       tokenId: '',
       benefits: [],
     });
@@ -62,7 +62,7 @@ export const MintCard = ({ nftCollection }: Props) => {
               Mint Now
             </StyledButton>
           ) : (
-            <ConnectorButtonMenu />
+            <ConnectorButtonMenu isRedirect={false} />
           )}
         </Box>
       </Box>

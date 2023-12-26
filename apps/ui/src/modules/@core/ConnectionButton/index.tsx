@@ -11,12 +11,22 @@ import { PrivatePaths } from '@/enums/paths.enum';
 import useSignIn from '@/hooks/useSignIn';
 import { LoginResponse } from '@/services/auth/types';
 
-const ConnectorButtonMenu = () => {
+type ConnectorButtonMenuProps = {
+  isRedirect?: boolean;
+  redirectUrl?: string;
+};
+
+const ConnectorButtonMenu = ({
+  redirectUrl = PrivatePaths.USER_COLLECTION,
+  isRedirect = true,
+}: ConnectorButtonMenuProps) => {
   const router = useRouter();
 
   const onLoginSuccess = (data: LoginResponse) => {
     Cookies.set(CookieKeys.TOKEN, data.accessToken);
-    router.push(PrivatePaths.USER_COLLECTION);
+    if (isRedirect) {
+      router.push(redirectUrl);
+    }
   };
   const {
     handleSignIn,

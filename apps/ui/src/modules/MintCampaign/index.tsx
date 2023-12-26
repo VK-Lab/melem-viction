@@ -1,5 +1,6 @@
 import { Box } from '@mui/material';
 import Image from 'next/future/image';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import { MintCard } from './MintCard';
@@ -21,10 +22,12 @@ const MintCampaign = () => {
   return (
     <StyledWelcomePage disableGutters maxWidth={false}>
       <div
-        className="d2e--logo"
+        className="melem--logo"
         style={{ position: 'fixed', left: 24, top: 24, zIndex: 1000 }}
       >
-        <Image alt="Melem" src={Logo} style={{ height: 'auto', width: 80 }} />
+        <Link href={`/`}>
+          <Image alt="Melem" src={Logo} style={{ height: 'auto', width: 80 }} />
+        </Link>
       </div>
       <StyledBox className="left">
         <StyledImageOverlay />
