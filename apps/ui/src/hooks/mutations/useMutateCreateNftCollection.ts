@@ -4,6 +4,7 @@ import _get from 'lodash/get';
 import { useMutation, UseMutationOptions } from 'react-query';
 
 import { useI18nToast } from '../useToast';
+import { ContractConfigs } from '@/config/contractConfigs';
 import { MutationKeys } from '@/enums/mutationKeys.enum';
 import { useEthersSigner } from '@/hooks/useEthers';
 import { createNftCollection } from '@/services/admin/nft-collection';
@@ -31,21 +32,20 @@ export const useMutateCreateNftCollection = (
       if (!signer) {
         throw new Error('signer is not defined');
       }
-      console.log('params: ', params);
 
       const sdk = ThirdwebSDK.fromSigner(signer, TomochainTestnet, {
         clientId: 'a52cdd93846e9efa926f046e81140bce',
       });
       const deployedContractAddress =
         await sdk.deployer.deployPublishedContract(
-          '0xCE16CDf11574629cAC4550D1f215e6e393eB4C5D',
-          'NFTSimple',
+          '0x5D7B0403322065502D15270C86acF8f8D3B65A2e',
+          params.contractName,
           [
             params.name,
             params.symbol,
             `${generateMetadataBaseUrl(params.uid)}/`,
           ],
-          '1.0.2'
+          ContractConfigs[params.contractName].version
         );
 
       return createNftCollection({

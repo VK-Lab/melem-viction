@@ -15,6 +15,7 @@ export type UpdateCampaignParams = {
   name: string;
   description: string;
   nftCollectionIds: string[];
+  nftCollectionId?: string;
 };
 
 export type UpdateCampaignResponse = {
@@ -23,6 +24,7 @@ export type UpdateCampaignResponse = {
 
 export type CreateCampaignParams = Omit<UpdateCampaignParams, 'id'> & {
   nftCollectionIds: string[];
+  nftCollectionId?: string;
   type?: string;
 };
 

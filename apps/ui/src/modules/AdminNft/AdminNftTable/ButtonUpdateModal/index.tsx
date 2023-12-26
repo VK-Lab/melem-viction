@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import { AutocompleteElement, FormContainer } from 'react-hook-form-mui';
 import { useQueryClient } from 'react-query';
 
-import { StyledTextFieldElement } from './styled';
+import { StyledButton, StyledTextFieldElement } from './styled';
 import ToastMessage from '@/components/Toast';
 import { QueryKeys } from '@/enums/queryKeys.enum';
 import { useMutateUpdateNft } from '@/hooks/mutations';
@@ -49,7 +49,6 @@ const ButtonUpdateModal = ({ nft }: ButtonUpdateModalProps) => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const handleOnSubmitForm = (updateNftParams: UpdateNftParams) => {
-    console.log(nft);
     updateNftMutation.mutate({
       ...updateNftParams,
       id: nft.id,
@@ -99,9 +98,14 @@ const ButtonUpdateModal = ({ nft }: ButtonUpdateModalProps) => {
                 />
               </Box>
               <Box mt="1rem">
-                <Button type={'submit'} color={'primary'} variant={'contained'}>
+                <StyledButton
+                  type={'submit'}
+                  color={'primary'}
+                  variant={'contained'}
+                  loading={updateNftMutation.isLoading}
+                >
                   Update
-                </Button>
+                </StyledButton>
               </Box>
             </FormContainer>
           </Box>

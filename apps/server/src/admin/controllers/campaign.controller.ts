@@ -5,7 +5,7 @@ import { Types } from 'mongoose';
 import { AdminCampaignService } from '../services';
 import { CreateCampaignDto, GetCampaignsDto, UpdateCampaignDto } from '../dtos';
 
-import { Auth, ListDto, ParseObjectId, ReqUser, RoleEnum } from '@/common';
+import { Auth, ListDto, ParseObjectId, ReqUser } from '@/common';
 import { Benefit } from '@/modules/benefit';
 import { Payload } from '@/auth';
 import { Campaign } from '@/modules/campaign';
@@ -22,7 +22,7 @@ export class AdminCampaignController {
     type: ListDto<Benefit>,
   })
   @Get('/')
-  @Auth(RoleEnum.ADMIN)
+  @Auth()
   public async getCampaigns(
     @ReqUser() user: Payload,
       @Query() getCampaignsDto: GetCampaignsDto): Promise<ListDto<Campaign>> {
@@ -34,13 +34,13 @@ export class AdminCampaignController {
     type: Benefit,
   })
   @Post('/')
-  @Auth(RoleEnum.ADMIN)
+  @Auth()
   public async createCampaign(@ReqUser() user: Payload, @Body() createCampaignDto: CreateCampaignDto): Promise<Campaign> {
     return this.adminCampaignService.createCampaign(user.userId, createCampaignDto);
   }
 
   @Put(':id')
-  @Auth(RoleEnum.ADMIN)
+  @Auth()
   public async updateCampaign(@Param('id', ParseObjectId) id: Types.ObjectId, @Body() updateNftDto: UpdateCampaignDto): Promise<IdDto> {
     return this.adminCampaignService.updateCampaign(id, updateNftDto);
   }

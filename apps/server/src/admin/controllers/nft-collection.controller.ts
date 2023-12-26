@@ -5,7 +5,7 @@ import { Types } from 'mongoose';
 import { AdminNftCollectionService } from '../services';
 import { CreateNftCollectionDto, GetNftCollectionsDto, UpdateNftCollectionDto } from '../dtos';
 
-import { Auth, ListDto, ParseObjectId, ReqUser, RoleEnum } from '@/common';
+import { Auth, ListDto, ParseObjectId, ReqUser } from '@/common';
 import { IdDto } from '@/common/dtos/id.dto';
 import { Nft } from '@/modules/nft';
 import { NftCollection } from '@/modules/nft-collection';
@@ -21,7 +21,7 @@ export class AdminNftCollectionController {
     type: ListDto<Nft>,
   })
   @Get('/')
-  @Auth(RoleEnum.ADMIN)
+  @Auth()
   public async getNftCollections(
     @ReqUser() user: Payload,
       @Query() getNftCollectionsDto: GetNftCollectionsDto): Promise<ListDto<NftCollection>> {
@@ -29,14 +29,14 @@ export class AdminNftCollectionController {
   }
 
   @Put(':id')
-  @Auth(RoleEnum.ADMIN)
+  @Auth()
   public async updateNftCollection(
     @Param('id', ParseObjectId) id: Types.ObjectId, @Body() updateNftCollectionDto: UpdateNftCollectionDto): Promise<IdDto> {
     return this.adminNftCollectionService.updateNftCollection(id, updateNftCollectionDto);
   }
 
   @Post('/')
-  @Auth(RoleEnum.ADMIN)
+  @Auth()
   public async createNftCollection(@ReqUser() user: Payload, @Body() createNftCollectionDto: CreateNftCollectionDto): Promise<IdDto> {
     return this.adminNftCollectionService.createNftCollection({
       ...createNftCollectionDto,

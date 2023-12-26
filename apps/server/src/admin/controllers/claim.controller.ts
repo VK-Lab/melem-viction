@@ -5,7 +5,7 @@ import { Types } from 'mongoose';
 import { AdminClaimService, AdminNftCollectionService } from '../services';
 import { GetClaimsDto, UpdateClaimStatusDto } from '../dtos';
 
-import { Auth, ListDto, ParseObjectId, ReqUser, RoleEnum } from '@/common';
+import { Auth, ListDto, ParseObjectId, ReqUser } from '@/common';
 import { Claim } from '@/modules/claim';
 import { IdDto } from '@/common/dtos/id.dto';
 import { Payload } from '@/auth';
@@ -24,7 +24,7 @@ export class AdminClaimController {
     type: ListDto<Claim>,
   })
   @Get('/')
-  @Auth(RoleEnum.ADMIN)
+  @Auth()
   public async getClaims(
     @ReqUser() user: Payload,
       @Query() getClaimsDto: GetClaimsDto,
@@ -38,7 +38,7 @@ export class AdminClaimController {
   }
 
   @Put(':id/status')
-  @Auth(RoleEnum.ADMIN)
+  @Auth()
   public async updateClaimStatus(
     @Param('id', ParseObjectId) id: Types.ObjectId, @Body() updateClaimStatusDto: UpdateClaimStatusDto): Promise<IdDto> {
     return this.adminClaimService.updateClaimStatus(id, updateClaimStatusDto);

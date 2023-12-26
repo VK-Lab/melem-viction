@@ -33,7 +33,7 @@ const MintCampaign = () => {
         <StyledImageOverlay />
         <Image
           alt="Mountains"
-          src={data?.nftCollections[0].defaultImageUrl || imageWelcome}
+          src={data?.nftCollections[0]?.defaultImageUrl || imageWelcome}
           fill
           sizes="100vw"
           style={{
