@@ -45,10 +45,16 @@ export const useMutateCreatePublicNft = (
         throw new Error('Can not get tokenId');
       }
 
-      return createNft({
+      const nftCreated = await createNft({
         ...params,
+        name: `${params.name} #${BigNumber.from(tokenIdHex).toString()}`,
         tokenId: BigNumber.from(tokenIdHex).toString(),
       });
+
+      return {
+        id: nftCreated.id,
+        deployHash: hash,
+      };
     },
     mutationKey: MutationKeys.CREATE_NFT,
   });
