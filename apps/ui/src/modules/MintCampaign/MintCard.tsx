@@ -94,7 +94,7 @@ export const MintCard = ({ nftCollection }: Props) => {
               >
                 <StyledModalBox sx={{ width: 600 }}>
                   <Typography variant="h5" component="h2" textAlign={'center'}>
-                    Waiting transaction confirmation
+                    Waiting for transaction confirmation
                   </Typography>
                   <Box mt={2}>
                     <Typography sx={{ fontSize: 16 }} textAlign={'center'}>
