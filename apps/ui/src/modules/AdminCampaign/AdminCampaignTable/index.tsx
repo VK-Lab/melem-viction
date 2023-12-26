@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { Box, Button, Chip, Link } from '@mui/material';
+import { Box, Chip, Link } from '@mui/material';
 import dayjs from 'dayjs';
 import _get from 'lodash/get';
 import MaterialReactTable, { MRT_ColumnDef } from 'material-react-table';
