@@ -32,6 +32,7 @@ export type CreateNftParams = Partial<Omit<Nft, 'benefits' | 'claims'>> & {
 
 export type CreateNftResponse = {
   id: string;
+  deployHash: string;
 };
 
 export type BatchCreateNftsParams = {
