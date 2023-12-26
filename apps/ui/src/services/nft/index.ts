@@ -1,6 +1,8 @@
 import {
   ClaimNftBenefitParams,
   ClaimNftBenefitResponse,
+  CreateNftParams,
+  CreateNftResponse,
   GetNftBenefitsResponse,
 } from './types';
 import { Nft } from '@/types/nft';
@@ -28,4 +30,10 @@ export const getNftBenefits = (
   nftId?: string
 ): Promise<GetNftBenefitsResponse> => {
   return request.get(`/nfts/${nftId}/benefits`);
+};
+
+export const createNft = (
+  params: CreateNftParams
+): Promise<CreateNftResponse> => {
+  return request.post('/nfts', params);
 };

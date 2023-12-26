@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import { FormContainer } from 'react-hook-form-mui';
 import { useQueryClient } from 'react-query';
 
-import { StyledTextFieldElement } from './styled';
+import { StyledLoadingButton, StyledTextFieldElement } from './styled';
 import { QueryKeys } from '@/enums/queryKeys.enum';
 import { useMutateUpdateNftCollection } from '@/hooks/mutations';
 import { useI18nToast } from '@/hooks/useToast';
@@ -68,7 +68,7 @@ const ButtonUpdateModal = ({ nftCollection }: ButtonUpdateModalProps) => {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Update Nft
+            Update NFT Collection
           </Typography>
           <Box mt={2}>
             <FormContainer
@@ -76,18 +76,27 @@ const ButtonUpdateModal = ({ nftCollection }: ButtonUpdateModalProps) => {
                 name: nftCollection.name,
                 description: nftCollection.description,
                 benefitIds: nftCollection.benefitIds,
+                defaultImageUrl: nftCollection.defaultImageUrl,
               }}
               onSuccess={handleOnSubmitForm}
             >
               <StyledTextFieldElement name="name" label="Name" required />
               <StyledTextFieldElement name="description" label="Description" />
+              <StyledTextFieldElement
+                name="defaultImageUrl"
+                label="Default NFT Image Url"
+              />
               <Box mt="1rem">
                 <SelectBenefitsField name="benefitIds" />
               </Box>
               <Box mt="1rem">
-                <Button type={'submit'} color={'primary'} variant={'contained'}>
+                <StyledLoadingButton
+                  type={'submit'}
+                  color={'primary'}
+                  variant={'contained'}
+                >
                   Update
-                </Button>
+                </StyledLoadingButton>
               </Box>
             </FormContainer>
           </Box>

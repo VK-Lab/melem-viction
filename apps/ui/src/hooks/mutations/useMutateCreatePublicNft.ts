@@ -6,14 +6,14 @@ import { waitForTransaction } from 'wagmi/actions';
 
 import { NFT_COLLECTION_ABI } from '@/abis/nft-collection';
 import { MutationKeys } from '@/enums/mutationKeys.enum';
-import { createNft } from '@/services/admin/nft';
 import { CreateNftParams, CreateNftResponse } from '@/services/admin/nft/types';
+import { createNft } from '@/services/nft';
 
 type Params = {
   contractAddress?: `0x${string}`;
 };
 
-export const useMutateCreateNft = (
+export const useMutateCreatePublicNft = (
   { contractAddress }: Params,
   options?: UseMutationOptions<
     CreateNftResponse,

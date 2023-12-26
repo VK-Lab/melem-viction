@@ -1,4 +1,4 @@
-import { BadRequestException, Controller, ForbiddenException, Get, HttpCode, HttpStatus, Param, Post } from '@nestjs/common';
+import { BadRequestException, Body, Controller, ForbiddenException, Get, HttpCode, HttpStatus, Param, Post } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { Types } from 'mongoose';
 import _ from 'lodash';
@@ -12,9 +12,11 @@ import { NftService } from './nft.service';
 import { Erc721Metadata, NftId } from './interfaces';
 import { NftDetailDto } from './dtos/nft-detail.dto';
 import { NftBenefit } from './interfaces/nft-benefit.interface';
+import { CreateNftDto } from './dtos/create-nft.dto';
 
 import { Auth, ClaimStatusEnum, ParseObjectId, ReqUser } from '@/common';
 import { Payload } from '@/auth';
+import { IdDto } from '@/common/dtos/id.dto';
 
 @ApiTags('nfts')
 @Controller('nfts')
@@ -46,13 +48,17 @@ export class NftController {
     description: 'Get nfts',
   })
   public async getNfts(@ReqUser() user: Payload): Promise<NftDetailDto[]> {
-    const nfts = await this.nftScanService.getAssetsByAccount(user.walletAddress);
-    const nftConditions = nfts.map((nft: NftScanEvmAsset) => ({
-      tokenAddress: nft.contract_address,
-      tokenId: nft.token_id,
-    }));
+    try {
+      const nfts = await this.nftScanService.getAssetsByAccount(user.walletAddress);
+      const nftConditions = nfts.map((nft: NftScanEvmAsset) => ({
+        tokenAddress: nft.contract_address,
+        tokenId: nft.token_id,
+      }));
 
-    return this.nftService.filterNftsByTokenAddressAndId(nftConditions);
+      return await this.nftService.filterNftsByTokenAddressAndId(nftConditions);
+    } catch (e) {
+      throw new BadRequestException('NFT not found');
+    }
   }
 
   @Get('/:id/benefits')
@@ -123,6 +129,20 @@ export class NftController {
       @Param('benefitId', ParseObjectId) benefitId: Types.ObjectId,
   ): Promise<NftId> {
     return this.nftService.claimBenefit(user, nftId, benefitId);
+  }
+
+  @Post('/')
+  public async createNft(
+    @Body() createNftDto: CreateNftDto): Promise<IdDto> {
+    const foundNft = await this.nftService.findByTokenAddressAndTokenId(createNftDto.tokenAddress, createNftDto.tokenId);
+    if (foundNft) {
+      throw new BadRequestException('nft_does_exist');
+    }
+    const createdNft = await this.nftService.createNft(createNftDto);
+
+    return {
+      id: createdNft._id.toString(),
+    };
   }
 
   @Get(':id')

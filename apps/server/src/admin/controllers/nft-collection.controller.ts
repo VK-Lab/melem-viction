@@ -22,7 +22,9 @@ export class AdminNftCollectionController {
   })
   @Get('/')
   @Auth(RoleEnum.ADMIN)
-  public async getNftCollections(@ReqUser() user: Payload, @Query() getNftCollectionsDto: GetNftCollectionsDto): Promise<ListDto<NftCollection>> {
+  public async getNftCollections(
+    @ReqUser() user: Payload,
+      @Query() getNftCollectionsDto: GetNftCollectionsDto): Promise<ListDto<NftCollection>> {
     return this.adminNftCollectionService.getNftCollections(user.userId, getNftCollectionsDto);
   }
 

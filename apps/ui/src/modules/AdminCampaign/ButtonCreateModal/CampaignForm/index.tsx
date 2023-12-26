@@ -1,6 +1,7 @@
 import { LoadingButton } from '@mui/lab';
 import Box from '@mui/material/Box';
-import { FormContainer } from 'react-hook-form-mui';
+import isArray from 'lodash/isArray';
+import { FormContainer, SelectElement } from 'react-hook-form-mui';
 import { useQueryClient } from 'react-query';
 
 import { StyledTextFieldElement } from './styled';
@@ -31,7 +32,14 @@ const NftForm = ({ onSuccess }: Props) => {
   });
 
   const handleOnSubmitForm = (createCampaignParams: CreateCampaignParams) => {
-    createCampaignMutation.mutate(createCampaignParams);
+    const nftCollectionIds = isArray(createCampaignParams.nftCollectionIds)
+      ? createCampaignParams.nftCollectionIds
+      : [createCampaignParams.nftCollectionIds];
+
+    createCampaignMutation.mutate({
+      ...createCampaignParams,
+      nftCollectionIds,
+    });
   };
 
   return (
@@ -39,11 +47,25 @@ const NftForm = ({ onSuccess }: Props) => {
       defaultValues={{
         name: '',
         description: '',
+        type: 'free_mint',
       }}
       onSuccess={handleOnSubmitForm}
     >
       <StyledTextFieldElement name="name" label="Name" required />
       <StyledTextFieldElement name="description" label="Description" />
+      <Box mt="1rem">
+        <SelectElement
+          sx={{ width: '100%' }}
+          options={[
+            {
+              label: 'Free Mint',
+              id: 'free_mint',
+            },
+          ]}
+          name={'type'}
+          required
+        />
+      </Box>
       <Box mt="1rem">
         <SelectNftCollectionsField name="nftCollectionIds" />
       </Box>

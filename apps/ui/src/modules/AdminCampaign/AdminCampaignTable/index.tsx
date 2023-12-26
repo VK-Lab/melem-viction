@@ -31,7 +31,7 @@ const AdminCampaignTable = () => {
       },
       {
         accessorKey: 'nftCollections',
-        header: 'NFT Collections',
+        header: 'NFT Collection',
         Cell: ({ row }) => {
           const nftCollections = _get(row, 'original.nftCollections');
           if (!nftCollections) {

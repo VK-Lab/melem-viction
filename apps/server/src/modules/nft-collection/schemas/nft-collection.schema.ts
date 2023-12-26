@@ -27,6 +27,9 @@ export class NftCollection {
   })
   public uid!: string;
 
+  @Prop()
+  public defaultImageUrl?: string;
+
   @Prop({
     required: true,
   })
