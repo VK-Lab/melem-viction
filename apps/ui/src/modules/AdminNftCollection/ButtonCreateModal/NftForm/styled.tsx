@@ -7,6 +7,6 @@ export const StyledTextFieldElement = styled(TextFieldElement)(({ theme }) => ({
   width: '100%',
 }));
 
-export const StyledLoadingButton = styled(LoadingButton)(({ theme }) => ({
+export const StyledLoadingButton = styled(LoadingButton)(() => ({
   width: '100%',
 }));
