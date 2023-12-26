@@ -1,4 +1,4 @@
-import { useQuery, UseQueryOptions } from 'react-query';
+import { QueryClient, useQuery, UseQueryOptions } from 'react-query';
 
 import { QueryKeys } from '@/enums/queryKeys.enum';
 import { getCampaign } from '@/services/campaign';
@@ -15,4 +15,15 @@ export const useGetCampaign = (
     ...options,
     enabled: !!id,
   });
+};
+
+export const prefetchGetCampaign = async (id: string) => {
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery({
+    queryKey: [QueryKeys.CAMPAIGNS, id],
+    queryFn: () => getCampaign(id),
+  });
+
+  return queryClient;
 };
