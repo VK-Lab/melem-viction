@@ -24,8 +24,6 @@ Melem Viction is designed for the next generation of brand NFT programs, empower
 Technology Stack
 ----------------
 
-Melem Viction is built using a robust and scalable technology stack, ensuring a seamless and efficient user experience.
-
 * **Monorepo Structure**: The project is structured as a monorepo containing an 'apps' folder, which includes both the server and UI components.
     * **apps/server**: Developed using NestJS and MongoDB, offering a powerful and flexible backend solution.
     * **apps/ui**: Crafted with Next.js and the MUI library, providing a modern and responsive user interface.
