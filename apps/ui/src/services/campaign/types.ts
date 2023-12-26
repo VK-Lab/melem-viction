@@ -23,7 +23,6 @@ export type UpdateCampaignResponse = {
 
 export type CreateCampaignParams = Omit<UpdateCampaignParams, 'id'> & {
   nftCollectionIds: string[];
-  type?: string;
 };
 
 export type CreateCampaignResponse = {

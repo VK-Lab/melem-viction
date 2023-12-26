@@ -1,2 +1,10 @@
 {
+  "compilerOptions": {
+    "strict": false,
+    "skipLibCheck": true,
+    "baseUrl": "./",
+    "strictNullChecks": true,
+    // Not check on vscode
+    "noImplicitAny": true,
+  }
 }

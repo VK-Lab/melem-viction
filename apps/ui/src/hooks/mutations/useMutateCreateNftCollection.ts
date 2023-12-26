@@ -31,6 +31,7 @@ export const useMutateCreateNftCollection = (
       if (!signer) {
         throw new Error('signer is not defined');
       }
+      console.log('params: ', params);
 
       const sdk = ThirdwebSDK.fromSigner(signer, TomochainTestnet, {
         clientId: 'a52cdd93846e9efa926f046e81140bce',

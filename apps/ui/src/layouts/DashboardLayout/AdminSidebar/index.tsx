@@ -29,6 +29,15 @@ export default function NestedList({ maxWidth = 360 }) {
           <ListItemText primary="Campaigns" />
         </ListItemButton>
         <ListItemButton
+          selected={Boolean(router.asPath === AdminPaths.NFT_COLLECTIONS)}
+          onClick={() => handleOnClick(AdminPaths.NFT_COLLECTIONS)}
+        >
+          <ListItemIcon>
+            <AppsIcon />
+          </ListItemIcon>
+          <ListItemText primary="NFT Collections" />
+        </ListItemButton>
+        <ListItemButton
           selected={Boolean(router.asPath === AdminPaths.CLAIMS)}
           onClick={() => handleOnClick(AdminPaths.CLAIMS)}
         >
@@ -54,15 +63,6 @@ export default function NestedList({ maxWidth = 360 }) {
             <AppsIcon />
           </ListItemIcon>
           <ListItemText primary="NFTs" />
-        </ListItemButton>
-        <ListItemButton
-          selected={Boolean(router.asPath === AdminPaths.NFT_COLLECTIONS)}
-          onClick={() => handleOnClick(AdminPaths.NFT_COLLECTIONS)}
-        >
-          <ListItemIcon>
-            <AppsIcon />
-          </ListItemIcon>
-          <ListItemText primary="NFT Collections" />
         </ListItemButton>
       </List>
       {/* <List

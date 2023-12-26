@@ -3,16 +3,16 @@ import { Transform } from 'class-transformer';
 import { isArray, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { Types } from 'mongoose';
 
-export class CreateNftCollectionDto {
+export class CreateNftDto {
   @ApiProperty()
   @IsString()
-  @IsOptional()
+  @IsNotEmpty()
   public name!: string;
 
-  @ApiProperty()
+  @ApiPropertyOptional()
   @IsString()
   @IsOptional()
-  public description!: string;
+  public description?: string;
 
   @ApiProperty()
   @IsString()
@@ -22,22 +22,12 @@ export class CreateNftCollectionDto {
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
-  public chainId!: string;
+  public tokenId!: string;
 
   @ApiProperty()
-  @IsString()
-  @IsNotEmpty()
-  public contractType!: string;
-
-  @ApiPropertyOptional()
   @IsOptional()
   @IsString()
-  public defaultImageUrl?: string;
-
-  @ApiProperty()
-  @IsString()
-  @IsNotEmpty()
-  public uid!: string;
+  public imageUrl!: string;
 
   @ApiPropertyOptional()
   @IsOptional()
@@ -48,5 +38,7 @@ export class CreateNftCollectionDto {
 
     return value.map((val: string) => new Types.ObjectId(val));
   })
-  public benefitIds?: Types.ObjectId[];
+  public benefits?: Types.ObjectId[];
+
+  public createdBy?: Types.ObjectId;
 }

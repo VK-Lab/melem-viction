@@ -8,6 +8,7 @@ import {
   useWatch,
 } from 'react-hook-form-mui';
 import { useQueryClient } from 'react-query';
+import { useAccount } from 'wagmi';
 
 import { StyledTextFieldElement } from './styled';
 import ToastMessage from '@/components/Toast';
@@ -24,10 +25,12 @@ type NftFormProps = {
 
 const NftForm = ({ onSuccess }: NftFormProps) => {
   const queryClient = useQueryClient();
+  const { address } = useAccount();
   const formContext = useForm<CreateNftParams>({
     defaultValues: {
       name: '',
       tokenAddress: '',
+      walletAddress: address,
     },
   });
 
@@ -102,6 +105,8 @@ const NftForm = ({ onSuccess }: NftFormProps) => {
           })}
         />
       </Box>
+      <StyledTextFieldElement name="walletAddress" label="To Wallet Address" />
+
       <Box mt="1rem">
         <LoadingButton
           type={'submit'}

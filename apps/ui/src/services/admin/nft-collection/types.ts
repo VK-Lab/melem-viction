@@ -16,6 +16,7 @@ export type UpdateNftCollectionParams = {
   name: string;
   description: string;
   benefitIds: string[];
+  defaultImageUrl?: string;
 };
 
 export type UpdateNftCollectionResponse = {

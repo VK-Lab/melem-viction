@@ -1,10 +1,9 @@
-import { LoadingButton } from '@mui/lab';
 import Box from '@mui/material/Box';
 import { customAlphabet } from 'nanoid/non-secure';
 import { FormContainer, SelectElement } from 'react-hook-form-mui';
 import { useQueryClient } from 'react-query';
 
-import { StyledTextFieldElement } from './styled';
+import { StyledLoadingButton, StyledTextFieldElement } from './styled';
 import ToastMessage from '@/components/Toast';
 import { Config } from '@/config';
 import { ContractType } from '@/enums/contractType.enum';
@@ -57,6 +56,10 @@ const NftForm = ({ onSuccess }: NftFormProps) => {
       <StyledTextFieldElement name="name" label="Name" required />
       <StyledTextFieldElement name="symbol" label="Symbol" required />
       <StyledTextFieldElement name="description" label="Description" />
+      <StyledTextFieldElement
+        name="defaultImageUrl"
+        label="Default NFT Image URL"
+      />
       <Box mt="1rem">
         <SelectElement
           label="Contract Type"
@@ -83,14 +86,14 @@ const NftForm = ({ onSuccess }: NftFormProps) => {
       <StyledTextFieldElement name="chainId" label="Chain Id" disabled />
 
       <Box mt="1rem">
-        <LoadingButton
+        <StyledLoadingButton
           loading={createNftCollectionMutation.isLoading}
           type={'submit'}
           color={'primary'}
           variant={'contained'}
         >
           Create
-        </LoadingButton>
+        </StyledLoadingButton>
       </Box>
     </FormContainer>
   );

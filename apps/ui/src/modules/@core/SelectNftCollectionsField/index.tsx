@@ -16,10 +16,9 @@ const SelectNftCollectionsField = ({ name, campaignId }: Props) => {
 
   return (
     <AutocompleteElement
-      multiple
       loading={isLoading}
       matchId
-      label="Nft Collection Ids"
+      label="NFT Collection"
       name={name}
       options={nftCollections
         .filter(

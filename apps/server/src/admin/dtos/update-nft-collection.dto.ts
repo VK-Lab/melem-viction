@@ -28,6 +28,11 @@ export class UpdateNftCollectionDto {
   public benefits?: Types.ObjectId[];
 
   @ApiPropertyOptional()
+  @IsString()
+  @IsOptional()
+  public defaultImageUrl?: string;
+
+  @ApiPropertyOptional()
   @IsOptional()
   @Transform(({ value }: { value: string[] }) => {
     if (!isArray(value)) {

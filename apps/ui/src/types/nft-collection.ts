@@ -10,4 +10,5 @@ export type NftCollection = {
   benefitIds?: string[];
   createdAt: string;
   uid: string;
+  defaultImageUrl?: string;
 };

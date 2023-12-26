@@ -22,6 +22,10 @@ export class CampaignService {
     return this.campaignModel.find({ createdBy: userId });
   }
 
+  public async getCampaignById(id: Types.ObjectId): Promise<Campaign | null> {
+    return this.campaignModel.findById(id).populate('nftCollections', 'id name tokenAddress defaultImageUrl');
+  }
+
   public async getCampaigns(
     filterQuery: FilterQuery<Campaign>,
     { page, limit, sortBy, orderBy }: PaginationDto): Promise<ListDto<Campaign>> {

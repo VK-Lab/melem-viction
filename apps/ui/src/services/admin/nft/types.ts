@@ -27,6 +27,7 @@ export type CreateNftParams = Partial<Omit<Nft, 'benefits' | 'claims'>> & {
   tokenId: string;
   name: string;
   imageUrl: string;
+  walletAddress?: string;
 };
 
 export type CreateNftResponse = {
