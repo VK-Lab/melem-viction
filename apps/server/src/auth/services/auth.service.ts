@@ -10,7 +10,7 @@ import { Payload } from '../auth.interface';
 
 import { UserService, User, UserIdDto } from '@/modules/user';
 import { OtpService, OtpTypesEnum } from '@/modules/otp';
-import { ConfigService, RoleEnum } from '@/common';
+import { ConfigService } from '@/common';
 
 @Injectable()
 export class AuthService {
