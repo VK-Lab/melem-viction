@@ -70,10 +70,8 @@ Melem Viction is released under [MIT License](#). For more details, see the LICE
 Stay Connected
 --------------
 
-For updates and news about Melem Viction, follow us on [Twitter](#) and join our [Discord community](#).
+For updates and news about Melem Viction, follow us on [Twitter](https://twitter.com/MlemApp).
 
 Melem Viction is more than just a platform; it's a step towards the future of brand engagement. Join us in this exciting journey!
 
 [GitHub Repository](https://github.com/VK-Lab/melem-viction)
-
-_Note_: The links marked with `#` should be replaced with actual URLs relevant to the project, such as documentation, contributing guidelines, social media pages, etc.
