@@ -57,7 +57,9 @@ export class NftController {
 
       return await this.nftService.filterNftsByTokenAddressAndId(nftConditions);
     } catch (e) {
-      throw new BadRequestException('NFT not found');
+      console.log(e);
+
+      return [];
     }
   }
 
